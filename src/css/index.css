@@ -1,0 +1,93 @@
+/*  ---------------------------
+    Global
+---------------------------  */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    color: #f2f2f2;
+    width: 100vw;
+}
+
+/*  ---------------------------
+    Sections
+---------------------------  */
+
+header {
+    /* height: 130px; */
+    width: 100%;
+    background-color: #151515;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header .header-item {
+    font-size: 1.4rem;
+    background-color: cadetblue;
+    margin: 25px;
+}
+
+header img {
+    background-color: crimson;
+    width: 100px;
+    height: 50px;
+    border: 3px solid #fff;
+
+    /* padding: 10px; */
+    /* margin: 10px 0; */
+}
+
+header .logo {
+    /* object-fit:contain; */
+    /* background-color: blueviolet; */
+   /* margin: 0 1rem; */
+}
+
+header a {
+    text-decoration: none;
+    padding: 10px;
+    color: rgb(0, 255, 76);
+    background-color: darkgoldenrod;
+}
+
+header a:hover {
+   background-color: #e2e2e2;
+}
+
+section {
+    background-color: black;
+
+}
+
+/*  ---------------------------
+    Elements
+---------------------------  */
+ 
+h1 {
+    /* font-size: 28px; */
+    font-size: 2rem;
+    margin: 2rem 0;
+
+}
+
+h2 {
+    /* font-size: 24px; */
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+h3 {
+    /* font-size: 18px; */
+    font-size: 1.1rem;
+    font-weight: lighter;
+}

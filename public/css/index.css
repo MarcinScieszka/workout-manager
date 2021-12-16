@@ -1,6 +1,16 @@
 /*  ---------------------------
-    Global
+Global
 ---------------------------  */
+
+:root {
+    --background: #0f0f0f;
+    --text-light: #f5f5f5;
+    --text-dark: #0a0a0a;
+    --header: #000000;
+    --header-hover: #e2e2e2;
+    --red: #B60000;
+    --red-hover: #990101;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
 
@@ -14,8 +24,31 @@
 }
 
 body {
-    color: #f2f2f2;
-    background-color: black;
+    color: var(--text-light);
+    background-color: var(--background);
+    overscroll-behavior-y: none;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 2rem 1rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 1.5rem 1rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: lighter;
+    margin: 1rem 0.8rem;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
 }
 
 /*  ---------------------------
@@ -24,71 +57,94 @@ body {
 
 header {
     height: 130px;
-    background-color: #000000;
+    width: 100%;
+    background-color: var(--header);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.header-item-btn {
+    /* max-width: 195px;
+    min-width: 60px; */
+    width: 200px;
+
+    margin: 10px;
+}
+
+.header-item-btn:last-child {
+    margin-right: 10px;
+}
+
+.header-item-btn > a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    color: var(--text-light);
+    font-size: 1.8rem;
+    padding: 15px;
+    border-radius: 15px;
+    transition-duration: 0.3s;
+}
+
 #logo {
-    width: 180px;
-    height: 80px;
-    margin: 0 5px;
-    padding: 10px;
+    width: 200px;
+    margin-left: 10px;
+    margin-right: 5px;
+    padding: 10px 15px;
     border-radius: 15px;
 }
 
-.header-item {
-/* button { */
-
-    /* width: 200px;
-    height: 50px; */
-    /* background-color: turquoise; */
-    margin: 0 10px;
-    font-size: 1.5rem;
-    color: rgb(0, 0, 0);
-    /* background-color: #F0F0F0; */
-    padding: 10px;
+.header-item-btn > a:hover {
+    background-color: var(--header-hover);
+    color: var(--text-dark);
 }
-
-.header-item > a {
-/* button > a { */
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-
-    border-radius: 15px;
-}
-
-/* .header-item:hover { */
-    .header-item >  a:hover {
-   background-color: #e2e2e2;
-   color: black;
-}
-
-img:hover {
-    background-color: rgb(12, 12, 12);
-}
-
-/*  ---------------------------
-    Elements
----------------------------  */
  
-h1 {
-    /* font-size: 28px; */
-    font-size: 2rem;
-    margin: 2rem 0;
-
+ img:hover {
+    background-color: rgb(22, 22, 22);
 }
 
-h2 {
-    /* font-size: 24px; */
-    font-size: 1.5rem;
-    font-weight: normal;
+@media screen and (max-width: 1000px) {
+    #logo {
+        width: 140px;
+    }
+    
+    .header-item {
+        height: 50px;
+    }
+
+    .header-item-btn > a {
+
+        font-size: 1.4rem;
+        padding: 5px;
+    }
 }
 
-h3 {
-    /* font-size: 18px; */
-    font-size: 1.1rem;
-    font-weight: lighter;
+@media screen and (max-width: 650px) {
+    #logo {
+        width: 90px;
+    }
+    
+    .header-item {
+        height: 35px;
+    }
+
+    .header-item-btn > a {
+        font-size: 1.2rem;
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    #logo {
+        width: 80px;
+    }
+
+    .header-item {
+        height: 30px;
+    }
+
+    .header-item-btn > a {
+        font-size: 0.8rem;
+    }
 }

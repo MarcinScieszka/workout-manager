@@ -56,24 +56,20 @@ a {
 ---------------------------  */
 
 header {
-    height: 130px;
+    min-height: 100px;
     width: 100%;
+    gap: 1rem;
     background-color: var(--header);
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem 0;
 }
 
-.header-item-btn {
-    /* max-width: 195px;
-    min-width: 60px; */
-    width: 200px;
-
-    margin: 10px;
-}
-
-.header-item-btn:last-child {
-    margin-right: 10px;
+.header-item {
+    width: 190px;
+    height: 50px;
 }
 
 .header-item-btn > a {
@@ -82,16 +78,16 @@ header {
     width: 100%;
     color: var(--text-light);
     font-size: 1.8rem;
-    padding: 15px;
+    padding-top: 0.5rem;
     border-radius: 15px;
     transition-duration: 0.3s;
 }
 
 #logo {
-    width: 200px;
-    margin-left: 10px;
-    margin-right: 5px;
-    padding: 10px 15px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 0.3rem;
     border-radius: 15px;
 }
 
@@ -104,47 +100,13 @@ header {
     background-color: rgb(22, 22, 22);
 }
 
-@media screen and (max-width: 1000px) {
-    #logo {
-        width: 140px;
-    }
-    
-    .header-item {
-        height: 50px;
-    }
-
+@media screen and (max-width: 600px) {
     .header-item-btn > a {
-
-        font-size: 1.4rem;
-        padding: 5px;
-    }
-}
-
-@media screen and (max-width: 650px) {
-    #logo {
-        width: 90px;
-    }
-    
-    .header-item {
-        height: 35px;
-    }
-
-    .header-item-btn > a {
-        font-size: 1.2rem;
-        padding: 5px;
-    }
-}
-
-@media screen and (max-width: 560px) {
-    #logo {
-        width: 80px;
+        font-size: 1.5rem;
     }
 
     .header-item {
-        height: 30px;
-    }
-
-    .header-item-btn > a {
-        font-size: 0.8rem;
+        width: 160px;
+        height: 45px;
     }
 }

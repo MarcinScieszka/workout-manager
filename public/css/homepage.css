@@ -77,10 +77,12 @@ section:nth-child(3) {
 
     .section-two > .content-item-2 {
         grid-area: image-1;
+        text-align: center;
     }
 
     .section-two > .content-item-3 {
         grid-area: image-2;
+        text-align: center;
     } 
 }
 @media screen and (max-width:500px) {
@@ -106,4 +108,3 @@ section:nth-child(3) {
         grid-area: image-2;
     } 
 } 
-

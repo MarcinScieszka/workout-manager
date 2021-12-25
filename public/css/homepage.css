@@ -1,3 +1,8 @@
+section > * {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
 .hero {
     height: 850px;
     width: 100vw;
@@ -11,7 +16,7 @@
 
 .hero > .btn-container {
     width: 200px;
-    margin: 15px;
+    margin: 2rem;
 }
 
 .btn-container > a {
@@ -26,14 +31,13 @@
 
 .btn-container > a:hover {
     background-color: var(--red-hover);
-
 }
 
 /* --------------------------------- */
 
 section:nth-child(3) {
     width: 100%;
-    background: linear-gradient(121.34deg, #4E0000 -15.29%, #001856 88.88%);
+    background: linear-gradient(21.47deg, #4E0000 -27.48%, #001856 78.1%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,9 +52,10 @@ section:nth-child(3) {
         "text image-1 image-2";
 }
 
-.section-2 > * {
+/* .section-2 > * {
     padding-top: 1.5rem;
-}
+} */
+
 .section-2 > .content-item-1 {
     grid-area: text;
     padding-left: 1rem;
@@ -103,7 +108,7 @@ section:nth-child(3) {
 
 section:nth-child(4) {
     width: 100%;
-    background: linear-gradient(254.27deg, #2E2E2E 0%, #000000 56.38%);
+    background: linear-gradient(320.23deg, #00247E -101.19%, #000000 77.29%, #000000 77.29%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -133,7 +138,7 @@ section:nth-child(4) {
 
 section:nth-child(5) {
     width: 100%;
-    background: linear-gradient(254.27deg, #2E2E2E 0%, #000000 56.38%);
+    background: linear-gradient(154.2deg, #000000 16.3%, #000000 16.3%, rgba(107, 0, 0, 0.98) 192.61%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,3 +172,37 @@ section:nth-child(5) {
     }
 } 
 
+/* --------------------------------- */
+
+
+section:nth-child(6) {
+    width: 100%;
+    background: linear-gradient(135deg, #00247E -75%, #070707 25%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-5 {
+    width: 1100px;
+    display: grid;
+    text-align: center;
+    grid-template-columns: 60% 40%;
+}
+
+.section-5-element:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-5 img {
+    width: 250px;
+    height: auto;
+}
+
+@media screen and (max-width: 700px) {
+    .section-5 > * {
+        grid-column: span 2;
+    }
+}

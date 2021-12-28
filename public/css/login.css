@@ -1,12 +1,55 @@
-/* background-image: url(public/img/login-2.png); */
-
-body {
-    background-color: rgb(0, 0, 0);
+section {
+    width: 100%;
+    min-height: 850px;
+    background: rgb(0,36,126);
+    background: linear-gradient(rgba(0,36,126,1) 0%, rgba(32,19,84,1) 80%, rgba(182,0,0,1) 140%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* @media screen and (max-width: 750px) {
-    body {
-        background-color: brown;
-    }
-} */
+.content {
+    /* background-image: url("public/img/login.png"); */
+    background: rgba(0, 0, 0, 0.35);
+    max-width: 500px;
+    max-height: 600px;
+    padding: 3rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+}
 
+.content a {
+    max-width: 100px;
+    margin-top: 1rem;
+}
+
+.content > h3 {
+    margin-top: 3rem;
+    margin-bottom: 0;
+}
+
+.content a {
+    background-color: var(--red);
+    min-width: 100px;
+    transition: 0.3s;
+}
+
+.content a:hover {
+    background-color: var(--red-hover);
+}
+
+.content h2 {
+    font-weight: 600;
+}
+
+.content a:last-child {
+    background-color: transparent;
+    border: var(--red) solid 1px;
+}
+
+.content a:last-child:hover {
+    background-color: var(--red);;
+}

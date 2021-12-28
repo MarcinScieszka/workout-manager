@@ -40,8 +40,7 @@ h2 {
     font-weight: normal;
     margin: 0.5rem;
     margin-bottom: 1rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding: 2rem 0.5rem;
 }
 
 h3 {
@@ -55,9 +54,15 @@ a {
     text-align: center;
 }
 
+.grid-col-span-3 {
+    grid-column: span 3;
+}
+
 /*  ---------------------------
     Sections
 ---------------------------  */
+
+/* header */
 
 header {
     min-height: 100px;
@@ -83,7 +88,7 @@ header {
     color: var(--text-light);
     font-size: 1.8rem;
     padding-top: 0.5rem;
-    border-radius: 15px;
+    border-radius: 1rem;
     transition-duration: 0.3s;
 }
 
@@ -92,7 +97,7 @@ header {
     height: 100%;
     width: 100%;
     padding: 0.3rem;
-    border-radius: 15px;
+    border-radius: 1rem;
 }
 
 .header-item-btn > a:hover {
@@ -100,8 +105,21 @@ header {
     color: var(--text-dark);
 }
  
- img:hover {
+
+.header-item img:hover {
     background-color: rgb(22, 22, 22);
+}
+
+/* .header-item:first-child:hover {
+    border-radius: 15px;
+    background-color: rgb(22, 22, 22);
+} */
+
+@media screen and (max-width: 1015px) {
+    .header-item {
+        width: 170px;
+        height: 55px;
+    }
 }
 
 @media screen and (max-width: 640px) {
@@ -115,6 +133,76 @@ header {
     }
 }
 
-.grid-col-span-3 {
-    grid-column: span 3;
+/* footer */
+
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-grid {
+    width: 1000px;
+    height: 130px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+}
+
+.footer-btn {
+    height: 100%;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 1.5rem;
+}
+
+#logo-round {
+    width: 90px;
+    height: 90px;
+}
+
+.footer-btn:last-child {
+    grid-row: 1 / -1;
+    grid-column: 4;
+    width: 100%;
+    height: 100%;
+    padding-left: 0.4rem;
+    justify-content: right;
+    padding-right: 1.5rem;
+}
+
+.footer-btn > a {
+    color: var(--text-light);
+}
+
+.copyright-box {
+    width: 100%;
+}
+
+.copyright {
+    height: 1.5rem;
+    background-color: black;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 550px) {
+    #logo-round {
+        width: 65px;
+        height: 65px;
+    }
+
+    .footer-btn {
+        padding-left: 1rem;
+    }
+
+    .footer-btn:last-child {
+        padding-right: 1rem;
+    }
 }

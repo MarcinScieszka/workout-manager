@@ -1,0 +1,69 @@
+.box {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-box {
+    background-image: url(../img/contact.jpg);
+    min-height: 850px;
+    width: 1920px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    max-width: 1100px;
+    min-height: 30rem;
+    background-color: hsla(0, 0%, 81%, 0.521);
+    border-radius: 2rem;
+    margin: 0.5rem;
+}
+
+.content > h2 {
+    text-align: center;
+    font-weight: bolder;
+}
+
+.form-btn {
+    width: 120px;
+    background-color: var(--red);
+    color: var(--text-light);
+    margin-left: 1.5rem;
+}
+
+.form-btn:hover {
+    cursor: pointer;
+    background-color: var(--red-hover);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.contact-grid > textarea {
+    resize: none;
+    grid-column: span 2;
+}
+
+.contact-grid > :nth-child(3) {
+    grid-column: span 2;
+}
+
+@media screen and (max-width:500px) {
+    /* input {
+        margin: 0.7rem 0.4rem;
+    } */
+    .contact-grid > :nth-child(1), .contact-grid > :nth-child(2) {
+        grid-column: span 2;
+    }
+
+    .content {
+        width: 85%;
+    }
+}

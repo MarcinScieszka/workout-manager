@@ -3,13 +3,17 @@ section {
     min-height: 850px;
     background: rgb(0,36,126);
     background: linear-gradient(rgba(0,36,126,1) 0%, rgba(32,19,84,1) 80%, rgba(182,0,0,1) 140%);
+    /* background: url("public/img/login.png"); */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+input {
+    width: 280px;
+}
+
 .content {
-    /* background-image: url("public/img/login.png"); */
     background: rgba(0, 0, 0, 0.35);
     max-width: 500px;
     max-height: 600px;
@@ -52,4 +56,10 @@ section {
 
 .content a:last-child:hover {
     background-color: var(--red);;
+}
+
+@media screen and (max-width: 500px) {
+    .content {
+        padding: 1rem;
+    }
 }

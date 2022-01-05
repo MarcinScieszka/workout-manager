@@ -35,16 +35,6 @@ input {
     margin-bottom: 0;
 }
 
-.content a {
-    background-color: var(--red);
-    min-width: 100px;
-    transition: 0.3s;
-}
-
-.content a:hover {
-    background-color: var(--red-hover);
-}
-
 .content h2 {
     font-weight: 600;
 }
@@ -56,6 +46,11 @@ input {
 
 .content a:last-child:hover {
     background-color: var(--red);;
+}
+
+.messages {
+    color: var(--red);
+    padding: 1rem;
 }
 
 @media screen and (max-width: 500px) {

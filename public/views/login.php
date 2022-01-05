@@ -30,9 +30,22 @@
     <section>
         <div class="content">
             <h2>Login</h2>
-            <input name="email" type="email" placeholder="Email">
-            <input name="password" type="password" placeholder="Password">
-            <a href="/dashboard">Login</a>
+
+            <form action="login" method="POST">
+                <input name="email" type="email" placeholder="Email">
+                <input name="password" type="password" placeholder="Password">
+                <button type="submit">Login</button>
+            </form>
+            <div class="messages">
+                <?php
+                    if(isset($messages)) {
+                        foreach ($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                ?>
+            </div>
+
             <h3>Do not have an account?</h3>
             <a href="/register">Register</a>
     </section>

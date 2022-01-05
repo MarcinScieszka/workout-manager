@@ -1,0 +1,38 @@
+.dashboard-containter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-section-1 {
+    width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.workout-plan-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.workout-plan-container img {
+    width: 200px;
+    height: 200px;
+    border: 3px solid #fff;
+}
+
+.workouts-btn {
+    position: relative;
+    bottom: 3rem;
+    background-color: var(--red);
+    width: 18rem;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: 3px solid #fff;
+}

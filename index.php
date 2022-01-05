@@ -9,5 +9,7 @@ Router::get('', 'DefaultController');
 Router::get('login', 'DefaultController');
 Router::get('register', 'DefaultController');
 Router::get('contact', 'DefaultController');
-
+Router::get('dashboard', 'DefaultController');
+Router::get('workouts', 'DefaultController');
+Router::post('login', 'SecurityController');
 Router::run($path);

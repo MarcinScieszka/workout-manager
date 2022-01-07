@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workouts</title>
+    <title>Add workout</title>
 </head>
 <body>
 <header>
@@ -26,44 +26,44 @@
             <a href="/login">Login</a>
         </div>
     </header>
-    <div class="workouts-container">
-        <div class="workouts-list">
-            <div class="workout-item">
-                <h3><?=$workout->getName() ?></h3>
-                <div class="workout-inside-box">
-                    <h2><?=$workout->getDuration() ?></h2>
-                    <h3><?=$workout->getDifficulty() ?></h3>
-                    <h4>
-                        <? foreach ($workout->getExercises() as $exercise) {
-                            echo $exercise . '<br>';
-                        } ?>
-                    </h4>
+
+    <section class="container">
+        <div class="workout-form">
+            <h1>Add workout</h1>
+
+            <form action="addWorkout" method="POST">
+                <div class="messages">
+                    <?php
+                        if(isset($messages)) {
+                            foreach ($messages as $message) {
+                                echo $message;
+                            }
+                        }
+                        ?>
                 </div>
-                <h3><?=$workout->getType() ?></h3>
-                <a href="/workoutDetails">See details</a>
-            </div>
-            <div class="workout-item">
-                <h3>temp-name</h3>
-                <div class="workout-inside-box">
-                    <h2>temp-duration</h2>
-                    <h3>temp-difficulty</h3>
-                    <h4>ex1 <br> ex2 <br> ex3 <br> ex4 </h4>
-                </div>
-                <h3>temp-type</h3>
-                <a href="/workoutDetails">See details</a>
-            </div>
-            <div class="workout-item">
-                <h3>temp-name</h3>
-                <div class="workout-inside-box">
-                    <h2>temp-duration</h2>
-                    <h3>temp-difficulty</h3>
-                    <h4>ex1 <br> ex2 <br> ex3 <br> ex4 </h4>
-                </div>
-                <h3>temp-type</h3>
-                <a href="/workoutDetails">See details</a>
-            </div>
+                <h3>Workout name</h3>
+                <input name="workout-name" type="text" placeholder="Name...">
+                <h3>Workout duration</h3>
+                <input name="workout-duration" type="text" placeholder="Duration...">
+                <h3>Difficulty</h3>
+                <select class="workout-difficulty" name = "workout-difficulty">
+                    <option value = "Easy" selected>Easy</option>
+                    <option value = "Medium">Medium</option>
+                    <option value = "Hard">Hard</option>
+                    <option value = "Hard">Very Hard</option>
+                </select>
+                <h3>Workout type</h3>
+                <input name="workout-type" type="text" placeholder="Type of workout...">
+                <h3>Exercises</h3>
+                <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
+                <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
+                <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
+                <!-- TODO: button "+" that adds another exercise" -->
+                <input type="submit" value="Add workout">
+            </form>
         </div>
-    </div>
+    </section>
+
     <footer>
         <div class="footer-grid">
             <div class="footer-btn">

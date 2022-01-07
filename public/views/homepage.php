@@ -128,7 +128,7 @@
     </footer>
     <div class="copyright-box">
         <div class="copyright">
-            <h5>Copyright &copy; 2022 Workager</h5>
+            <h5>&copy; Workager 2022</h5>
         </div>
     </div>
 </body>

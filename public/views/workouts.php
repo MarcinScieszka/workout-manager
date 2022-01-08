@@ -40,7 +40,7 @@
                     </h4>
                 </div>
                 <h3><?=$workout->getType() ?></h3>
-                <a href="/workoutDetails">See details</a>
+                <a class="abc" href="/workoutDetails">See details</a>
             </div>
             <div class="workout-item">
                 <h3>temp-name</h3>
@@ -50,7 +50,7 @@
                     <h4>ex1 <br> ex2 <br> ex3 <br> ex4 </h4>
                 </div>
                 <h3>temp-type</h3>
-                <a href="/workoutDetails">See details</a>
+                <a class="abc" href="/workoutDetails">See details</a>
             </div>
             <div class="workout-item">
                 <h3>temp-name</h3>
@@ -60,7 +60,7 @@
                     <h4>ex1 <br> ex2 <br> ex3 <br> ex4 </h4>
                 </div>
                 <h3>temp-type</h3>
-                <a href="/workoutDetails">See details</a>
+                <a class="abc" href="/workoutDetails">See details</a>
             </div>
         </div>
     </div>

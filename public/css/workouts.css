@@ -40,15 +40,14 @@
 
 .workout-item
 
-.workout-item a {
+/* workout-details-btn */
+.abc {
     background-color: var(--difficulty-easy);
     width: 120px;
     padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(1.3rem);
+    /* transform: translateY(1.3rem); */
     border: 2px solid white;
+    margin-top:0.5rem;
 }
 
 .workout-inside-box {

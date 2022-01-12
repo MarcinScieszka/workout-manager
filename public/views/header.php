@@ -1,0 +1,17 @@
+<header>
+    <div class="header-item">
+        <a href="/"><img src="public/img/logo_text.svg" alt="Workager logo" id="logo"></a>
+    </div>
+    <div class="header-item header-item-btn">
+        <a href="/plans">Plans</a>
+    </div>
+    <div class="header-item header-item-btn">
+        <a href="/workouts">Workouts</a>
+    </div>
+    <div class="header-item header-item-btn">
+        <a href="/contact">Contact</a>
+    </div>
+    <div class="header-item header-item-btn">
+        <a href="/login">Login</a>
+    </div>
+</header>

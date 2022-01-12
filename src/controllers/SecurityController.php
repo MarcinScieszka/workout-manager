@@ -13,13 +13,12 @@ class SecurityController extends AppController
             return $this->render('login');
         }
 
-        $email = filter_input(INPUT_POST, email, FILTER_VALIDATE_EMAIL);
-        if (empty(email)) {
-            return $this->render('login', ['messages' => ['Wrong email or password!']]);
+        if (!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
+            return $this->render('login', ['messages' => ['Wrong email format!']]);
         }
 
         $password = $_POST["password"];
-
+        $email = $_POST["email"];
         $user = $userRepository->getUser($email);
         
         if(!$user) {
@@ -30,10 +29,6 @@ class SecurityController extends AppController
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
-//        $url = "http://$_SERVER[HTTP_HOST]";
-//        header("Location: {$url}/dashboard");
-
         return $this->render('dashboard');
-
     }
 }

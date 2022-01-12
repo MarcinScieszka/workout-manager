@@ -10,26 +10,15 @@
 </head>
 <body>
 <header>
-        <div class="header-item">
-            <a href="/"><img src="public/img/logo_text.svg" alt="Workager logo" id="logo"></a>
-        </div>
-        <div class="header-item header-item-btn">
-            <a href="/plans">Plans</a>
-        </div>
-        <div class="header-item header-item-btn">
-            <a href="/workouts">Workouts</a>
-        </div>
-        <div class="header-item header-item-btn">
-            <a href="/contact">Contact</a>
-        </div>
-        <div class="header-item header-item-btn">
-            <a href="/login">Login</a>
-        </div>
-    </header>
+    <?php
+        include('header.php');
+    ?>
+
     <div class="workouts-container">
         <div class="workouts-list">
+            <!--                TODO: display all workouts form the database-->
+
             <div class="workout-item">
-<!--                TODO: display all workouts form database-->
 <!--                <h3>--><?//=$workout->getName() ?><!--</h3>-->
                 <div class="workout-inside-box">
 <!--                    <h3>--><?//=$workout->getDifficulty() ?><!--</h3>-->
@@ -44,35 +33,9 @@
             </div>
         </div>
     </div>
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-btn">
-                <a href="/register">Register</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/login">Login</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/plans">Plans</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/workouts">Workouts</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/about">About us</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/contact">Contact</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/"><img src="public/img/logo_round.svg" alt="Workager round logo" id="logo-round"></a>
-            </div>
-        </div>
-    </footer>
-    <div class="copyright-box">
-        <div class="copyright">
-            <h5>&copy; Workager 2022</h5>
-        </div>
-    </div>
+
+    <?php
+        include('footer.php');
+    ?>
 </body>
 </html>

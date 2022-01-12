@@ -9,31 +9,17 @@
     <title>Login page</title>
 </head>
 <body>
-    <header>
-        <div class="header-item">
-            <a href="/"><img src="public/img/logo_text.svg" alt="Workager logo" id="logo"></a>
-        </div>
-        <div class="header-item header-item-btn">
-            <a href="/plans">Plans</a>
-        </div>
-        <div class="header-item header-item-btn">
-            <a href="/workouts">Workouts</a>
-        </div>
-        <div class="header-item header-item-btn">
-            <a href="/contact">Contact</a>
-        </div>
-        <div class="header-item header-item-btn">
-            <a href="/login">Login</a>
-        </div>
-    </header>
+    <?php
+        include('header.php');
+    ?>
     
     <section>
         <div class="content">
             <h2>Login</h2>
 
             <form action="login" method="POST">
-                <input name="email" type="email" placeholder="Email">
-                <input name="password" type="password" placeholder="Password">
+                <input name="email" type="email" placeholder="Email" required>
+                <input name="password" type="password" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
             <div class="messages">
@@ -50,35 +36,8 @@
             <a href="/register">Register</a>
     </section>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-btn">
-                <a href="/register">Register</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/login">Login</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/plans">Plans</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/workouts">Workouts</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/about">About us</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/contact">Contact</a>
-            </div>
-            <div class="footer-btn">
-                <a href="/"><img src="public/img/logo_round.svg" alt="Workager round logo" id="logo-round"></a>
-            </div>
-        </div>
-    </footer>
-    <div class="copyright-box">
-        <div class="copyright">
-            <h5>Copyright &copy; 2022 Workager</h5>
-        </div>
-    </div>
+    <?php
+        include('footer.php');
+    ?>
 </body>
 </html>

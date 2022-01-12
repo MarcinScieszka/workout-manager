@@ -39,12 +39,10 @@
                                 echo $message;
                             }
                         }
-                        ?>
+                    ?>
                 </div>
                 <h3>Workout name</h3>
                 <input name="workout-name" type="text" placeholder="Name...">
-                <h3>Workout duration</h3>
-                <input name="workout-duration" type="text" placeholder="Duration...">
                 <h3>Difficulty</h3>
                 <select class="workout-difficulty" name = "workout-difficulty">
                     <option value = "Easy" selected>Easy</option>

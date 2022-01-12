@@ -29,37 +29,17 @@
     <div class="workouts-container">
         <div class="workouts-list">
             <div class="workout-item">
-                <h3><?=$workout->getName() ?></h3>
+<!--                TODO: display all workouts form database-->
+<!--                <h3>--><?//=$workout->getName() ?><!--</h3>-->
                 <div class="workout-inside-box">
-                    <h2><?=$workout->getDuration() ?></h2>
-                    <h3><?=$workout->getDifficulty() ?></h3>
-                    <h4>
-                        <? foreach ($workout->getExercises() as $exercise) {
-                            echo $exercise . '<br>';
-                        } ?>
-                    </h4>
+<!--                    <h3>--><?//=$workout->getDifficulty() ?><!--</h3>-->
+<!--                    <h4>-->
+<!--                        --><?// foreach ($workout->getExercises() as $exercise) {
+//                            echo $exercise . '<br>';
+//                        } ?>
+<!--                    </h4>-->
                 </div>
-                <h3><?=$workout->getType() ?></h3>
-                <a class="abc" href="/workoutDetails">See details</a>
-            </div>
-            <div class="workout-item">
-                <h3>temp-name</h3>
-                <div class="workout-inside-box">
-                    <h2>temp-duration</h2>
-                    <h3>temp-difficulty</h3>
-                    <h4>ex1 <br> ex2 <br> ex3 <br> ex4 </h4>
-                </div>
-                <h3>temp-type</h3>
-                <a class="abc" href="/workoutDetails">See details</a>
-            </div>
-            <div class="workout-item">
-                <h3>temp-name</h3>
-                <div class="workout-inside-box">
-                    <h2>temp-duration</h2>
-                    <h3>temp-difficulty</h3>
-                    <h4>ex1 <br> ex2 <br> ex3 <br> ex4 </h4>
-                </div>
-                <h3>temp-type</h3>
+<!--                <h3>--><?//=$workout->getType() ?><!--</h3>-->
                 <a class="abc" href="/workoutDetails">See details</a>
             </div>
         </div>

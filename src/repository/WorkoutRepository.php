@@ -60,6 +60,8 @@ class WorkoutRepository extends Repository
         try {
             $db->beginTransaction();
 
+//            TODO: make that inserts do not create new rows in workout type and difficulty and are getting proper id
+
             $stmt = $db->prepare ('
                 INSERT INTO workout_type (type) VALUES (?);
             ');

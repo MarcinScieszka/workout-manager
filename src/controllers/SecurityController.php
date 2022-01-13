@@ -13,7 +13,7 @@ class SecurityController extends AppController
             return $this->render('login');
         }
 
-        if (!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
+        if (filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) == false) {
             return $this->render('login', ['messages' => ['Wrong email format!']]);
         }
 
@@ -21,14 +21,18 @@ class SecurityController extends AppController
         $user = $userRepository->getUser($_POST["email"]);
         
         if(!$user) {
-            return $this->render('login', ['messages' => ['Wrong email or password!']]); // user does not exist
+            return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
         if ($user->getPassword() != $password) {
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
-        return $this->render('dashboard');
+//        TODO: after bad attempt, display provided email
+
+
+//        TODO: redirect when trying to manually go to /dashboard
+        $this->render('dashboard');
     }
 
     public function register() {
@@ -42,9 +46,13 @@ class SecurityController extends AppController
             return $this->render('register', ['messages' => ['Wrong email format!']]);
         }
 
+        //        TODO: check if email is already used
+
         if ($_POST["password"] != $_POST["confirm-password"]) {
             return $this->render('register', ['messages' => ['Passwords do not match!']]);
         }
+
+//        TODO: after bad attempt, display provided email
 
 //        TODO: add requirement for special symbols in password
 

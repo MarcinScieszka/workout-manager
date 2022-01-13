@@ -21,9 +21,19 @@
                 <input name="password" type="password" placeholder="Password">
                 <input name="confirm-password" type="password" placeholder="Confirm Password">
                 <button type="submit">Register</button>
+                <div class="messages">
+                    <?php
+                    if(isset($messages)) {
+                        foreach ($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
+            </form>
+                </div>
                 <h3>Already have an account?</h3>
                 <a href="/login">Login</a>
-            </form>
+
     </section>
 
     <?php

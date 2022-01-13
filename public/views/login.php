@@ -16,7 +16,6 @@
     <section>
         <div class="content">
             <h2>Login</h2>
-
             <form action="login" method="POST">
                 <input name="email" type="email" placeholder="Email" required>
                 <input name="password" type="password" placeholder="Password" required>
@@ -31,7 +30,6 @@
                     }
                 ?>
             </div>
-
             <h3>Do not have an account?</h3>
             <a href="/register">Register</a>
     </section>

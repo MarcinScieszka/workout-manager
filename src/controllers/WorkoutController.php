@@ -17,12 +17,19 @@ class WorkoutController extends AppController
 
     public function addWorkout() {
         if ($this->isPost()) {
-            $workout = new Workout($_POST['workout-name'], $_POST['workout-difficulty'], $_POST['workout-type'], $_POST['workout-exercises']);
+            $workout = new Workout($_POST['workout-name'], $_POST['workout-difficulty'], $_POST['workout-type']); //$_POST['workout-exercises']);
             $this->workoutRepository->addWorkout($workout);
 
-            return $this->render('workouts', ['messages' => $this->messages, 'workout' => $workout]);
+            return $this->render('workouts', ['messages' => $this->messages, 'workouts' => $this->workoutRepository->getWorkouts()]);
         }
 
         return $this->render('addWorkout', ['messages' => $this->messages]);
     }
+
+    public function workouts()
+    {
+        $workouts = $this->workoutRepository->getWorkouts();
+        $this->render('workouts', ['workouts' => $workouts]);
+    }
+
 }

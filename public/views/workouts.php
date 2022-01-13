@@ -13,24 +13,22 @@
     <?php
         include('header.php');
     ?>
-
     <div class="workouts-container">
         <div class="workouts-list">
-            <!--                TODO: display all workouts form the database-->
-
-            <div class="workout-item">
-<!--                <h3>--><?//=$workout->getName() ?><!--</h3>-->
-                <div class="workout-inside-box">
-<!--                    <h3>--><?//=$workout->getDifficulty() ?><!--</h3>-->
-<!--                    <h4>-->
-<!--                        --><?// foreach ($workout->getExercises() as $exercise) {
-//                            echo $exercise . '<br>';
-//                        } ?>
-<!--                    </h4>-->
+            <?php
+                foreach ($workouts as $wkt): ?>
+                <div class="workout-item">
+                    <h3><?=$wkt->getName();?></h3>
+                    <div class="workout-inside-box">
+                    <h3><?=$wkt->getDifficulty();?></h3>
+    <!--                    <h4>-->
+    <!--                           foreach (... as $exercise) {}-->
+    <!--                       </h4>-->
+                    </div>
+                    <h3><?=$wkt->getType();?></h3>
+                    <a class="abc" href="/workoutDetails">See details</a>
                 </div>
-<!--                <h3>--><?//=$workout->getType() ?><!--</h3>-->
-                <a class="abc" href="/workoutDetails">See details</a>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 

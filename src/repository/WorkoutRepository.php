@@ -10,9 +10,7 @@ class WorkoutRepository extends Repository
         $db = $this->database->connect();
 
         $stmt = $db->prepare('
-            SELECT * FROM public.workout 
-                JOIN workout_type ON workout.id_workout_type = workout_type.id 
-                JOIN workout_difficulty ON workout.id_workout_difficulty = workout_difficulty.id;
+            SELECT * FROM public.workout WHERE id = :id
         ');
 
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -30,6 +28,30 @@ class WorkoutRepository extends Repository
             $workout['type']
 //            $workout[''] TODO: handle exercises
         );
+    }
+
+    public function getWorkouts(): array {
+        $result = [];
+
+        $db = $this->database->connect();
+        $sql = '
+            SELECT workout_name, type, difficulty FROM public.workout w
+            INNER JOIN workout_type ON w.id_workout_type = workout_type.id
+            INNER JOIN workout_difficulty ON w.id_workout_difficulty = workout_difficulty.id
+        ';
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $workouts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($workouts as $workout) {
+            $result[] = new Workout(
+                $workout['workout_name'],
+                $workout['difficulty'],
+                $workout['type']
+            );
+        }
+
+        return $result;
     }
 
     public function addWorkout(Workout $workout) : void {

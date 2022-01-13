@@ -15,13 +15,15 @@
     
     <section>
         <div class="content">
-            <h2>Sign up</h2>
-            <input name="email" type="email" placeholder="Email">
-            <input name="password" type="password" placeholder="Password">
-            <input name="confrm-password" type="password" placeholder="Confrm Password">
-            <button type="submit">Register</button>
-            <h3>Already have an account?</h3>
-            <a href="/login">Login</a>
+            <form action="register" method="POST">
+                <h2>Sign up</h2>
+                <input name="email" type="email" placeholder="Email">
+                <input name="password" type="password" placeholder="Password">
+                <input name="confirm-password" type="password" placeholder="Confirm Password">
+                <button type="submit">Register</button>
+                <h3>Already have an account?</h3>
+                <a href="/login">Login</a>
+            </form>
     </section>
 
     <?php

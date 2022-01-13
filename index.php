@@ -13,4 +13,5 @@ Router::get('dashboard', 'DefaultController');
 Router::get('workouts', 'DefaultController');
 Router::post('login', 'SecurityController');
 Router::post('addWorkout', 'WorkoutController');
+Router::post('register', 'SecurityController');
 Router::run($path);

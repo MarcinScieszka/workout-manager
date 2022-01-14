@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +11,11 @@
 </head>
 <body>
     <?php
-        include('header.php');
+        include('init.php');
     ?>
     <section class="container">
         <div class="workout-form">
             <h1>Add workout</h1>
-
             <form action="addWorkout" method="POST">
                 <div class="messages">
                     <?php
@@ -29,14 +29,19 @@
                 <h3>Workout name</h3>
                 <input name="workout-name" type="text" placeholder="Name...">
                 <h3>Difficulty</h3>
-                <select class="workout-difficulty" name = "workout-difficulty">
-                    <option value = "Easy" selected>Easy</option>
-                    <option value = "Medium">Medium</option>
-                    <option value = "Hard">Hard</option>
-                    <option value = "Hard">Very Hard</option>
+                <select class="workout-difficulty" name="workout-difficulty">
+                    <option value="Just a training" selected>Just a training (Easy)</option>
+                    <option value="Hard work">Hard work (Medium)</option>
+                    <option value="Blood, sweat and tears">Blood, sweat and tears (Hard)</option>
+                    <option value="Death march">Death march (Very Hard)</option>
                 </select>
                 <h3>Workout type</h3>
-                <input name="workout-type" type="text" placeholder="Type of workout...">
+                <select class="workout-type" name="workout-type">
+                    <option value="Armwrestling" selected>Armwrestling</option>
+                    <option value="Bodybuilding">Bodybuilding</option>
+                    <option value="Powerlifting">Powerlifting</option>
+                </select>
+<!--                <input name="workout-type" type="text" placeholder="Type of workout...">-->
                 <h3>Exercises</h3>
                 <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
                 <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
@@ -46,9 +51,8 @@
             </form>
         </div>
     </section>
-
     <?php
-        include('footer.php');
+        include('elements/footer.php');
     ?>
 </body>
 </html>

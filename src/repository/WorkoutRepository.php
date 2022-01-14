@@ -60,29 +60,26 @@ class WorkoutRepository extends Repository
         try {
             $db->beginTransaction();
 
-//            TODO: make that inserts do not create new rows in workout type and difficulty and are getting proper id
-
-            $stmt = $db->prepare ('
-                INSERT INTO workout_type (type) VALUES (?);
-            ');
+            $sql = 'SELECT id FROM workout_type WHERE type = ?';
+            $stmt = $db->prepare ($sql);
             $wkt_type = $workout->getType();
             $stmt->execute([$wkt_type]);
-            $added_type_id = $db->lastInsertId();
+            $selected_type = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id_workout_type = $selected_type['id'];
 
-            $stmt = $db->prepare ('
-                INSERT INTO workout_difficulty (difficulty) VALUES (?);
-            ');
+            $sql = 'SELECT * FROM workout_difficulty WHERE difficulty = ?';
+            $stmt = $db->prepare($sql);
             $wkt_difficulty = $workout->getDifficulty();
             $stmt->execute([$wkt_difficulty]);
-            $added_difficulty_id = $db->lastInsertId();
+            $selected_difficulty = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id_workout_difficulty = $selected_difficulty['id'];
 
-            $stmt = $db->prepare ('
-                INSERT INTO workout (workout_name, id_workout_type, id_workout_difficulty) VALUES (?, ?, ?)
-            ');
+            $sql = 'INSERT INTO workout (workout_name, id_workout_type, id_workout_difficulty) VALUES (?, ?, ?)';
+            $stmt = $db->prepare($sql);
             $stmt->execute([
                 $workout->getName(),
-                $added_type_id,
-                $added_difficulty_id
+                $id_workout_type,
+                $id_workout_difficulty
             ]);
 
             $db->commit();

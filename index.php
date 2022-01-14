@@ -6,10 +6,10 @@ $path = trim($_SERVER['REQUEST_URI'], '/');
 $path = parse_url($path, PHP_URL_PATH);
 
 Router::get('', 'DefaultController');
-Router::get('contact', 'DefaultController');
-Router::get('dashboard', 'SecurityController');
 Router::get('workouts', 'WorkoutController');
 Router::post('login', 'SecurityController');
-Router::post('addWorkout', 'WorkoutController');
 Router::post('register', 'SecurityController');
+Router::post('addWorkout', 'WorkoutController');
+Router::get('contact', 'DefaultController');
+Router::get('dashboard', 'WorkoutController');
 Router::run($path);

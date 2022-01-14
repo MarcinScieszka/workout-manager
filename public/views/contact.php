@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +11,8 @@
 </head>
 <body>
     <?php
-        include('header.php');
+        require_once('init.php');
     ?>
-
     <section>
         <div class="box">
             <div class="image-box">
@@ -32,7 +32,7 @@
     </section>
 
     <?php
-        include('footer.php');
+        include('elements/footer.php');
     ?>
 </body>
 </html>

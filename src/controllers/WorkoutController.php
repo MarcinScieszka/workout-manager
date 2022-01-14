@@ -4,18 +4,17 @@ require_once 'AppController.php';
 require_once __DIR__.'/../models/Workout.php';
 require_once __DIR__.'/../repository/WorkoutRepository.php';
 
-class WorkoutController extends AppController
-{
+class WorkoutController extends AppController {
     private $messages = [];
     private $workoutRepository;
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->workoutRepository = new WorkoutRepository();
     }
 
     public function addWorkout() {
+        session_start();
         if ($this->isPost()) {
             $workout = new Workout($_POST['workout-name'], $_POST['workout-difficulty'], $_POST['workout-type']); //$_POST['workout-exercises']);
             $this->workoutRepository->addWorkout($workout);
@@ -26,10 +25,15 @@ class WorkoutController extends AppController
         return $this->render('addWorkout', ['messages' => $this->messages]);
     }
 
-    public function workouts()
-    {
+    public function workouts() {
+        session_start();
         $workouts = $this->workoutRepository->getWorkouts();
         $this->render('workouts', ['workouts' => $workouts]);
+    }
+
+    public function dashboard() {
+        session_start();
+        $this->render('dashboard');
     }
 
 }

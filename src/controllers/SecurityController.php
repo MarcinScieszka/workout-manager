@@ -17,21 +17,28 @@ class SecurityController extends AppController
             return $this->render('login', ['messages' => ['Wrong email format!']]);
         }
 
-        $password = $_POST["password"];
         $user = $userRepository->getUser($_POST["email"]);
         
         if(!$user) {
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
-        if ($user->getPassword() != $password) {
+        if (!password_verify($_POST["password"], $user->getPassword())) {
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
 //        TODO: after bad attempt, display provided email
 
+        session_start();
+        $_SESSION["user"] = htmlspecialchars($_POST['email']);
+
+//        setcookie("user", htmlspecialchars($_POST['email']), time() + 120, "/"); // TODO: increase time
 
 //        TODO: redirect when trying to manually go to /dashboard
+
+//        $url = "http://$_SERVER[HTTP_HOST]";
+//        header("Location: {$url}/dashboard");
+//        exit();
         $this->render('dashboard');
     }
 
@@ -56,12 +63,15 @@ class SecurityController extends AppController
 
 //        TODO: add requirement for special symbols in password
 
-//        TODO: salt and hash password
-//        password_hash()
-        $password = $_POST["password"];
+        $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
 
         $userRepository->addUser($_POST["email"] , $password);
 
         return $this->render('login');
+    }
+
+    function logout() {
+//        setcookie("user", "", time() - 3600);
+        session_destroy();
     }
 }

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,9 @@
     <title>Dashboard</title>
 </head>
 <body>
+    <?php
+        include('init.php');
+    ?>
     <div class="dashboard-containter">
         <section class="dashboard-section-1" >
             <h2>Let's get to work!</h2>
@@ -18,5 +22,8 @@
             </div>
         </section>
     </div>
+    <?php
+        include('elements/footer.php');
+    ?>
 </body>
 </html>

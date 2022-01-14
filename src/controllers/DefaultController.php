@@ -11,8 +11,4 @@ class DefaultController extends AppController {
     public function contact() {
         $this->render('contact');
     }
-
-//    public function dashboard() {
-//        $this->render('dashboard');
-//    }
 }

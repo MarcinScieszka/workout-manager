@@ -43,8 +43,7 @@ h1, h2, h3 {
 
 h1 {
     font-size: 2rem;
-    padding: 1rem;
-    padding-top: 2rem;
+    padding: 2rem 1rem 1rem;
 }
 
 h2 {
@@ -66,7 +65,7 @@ a {
     color: white;
     font-size: 1rem;
     padding: 0.5rem;
-    border-radius: 10px;
+    border-radius: 1rem;
     margin: 0.5rem;
 }
 
@@ -122,8 +121,11 @@ section.container {
 }
 
 select {
+    min-width: 200px;
+    height: 40px;
     font-size: 1rem;
     padding: 0.4rem;
+    margin: 1rem 0.4rem;
     border-radius: 0.5rem;
     background-color: var(--text-light);
 }
@@ -148,6 +150,7 @@ header {
 
 .header-item {
     width: 140px;
+    height: 50px;
 }
 
 .header-item a {
@@ -169,20 +172,78 @@ header {
     border-radius: 1rem;
 }
 
-.header-item-btn > a:hover {
-    background-color: var(--header-hover);
-    color: var(--text-dark);
-}
-
 .header-item > a {
     background-color: var(--header);
+    transition: 100ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-item-btn > a:hover {
+    background-color: rgb(22, 22, 22);
+    box-shadow: 0 0 1rem red;
 }
 
 .header-item:first-child > a:hover {
     background-color: rgb(22, 22, 22);
+    box-shadow: 0 0 1rem red;
 }
 
-@media screen and (max-width: 770px) {
+.profile-icon {
+    border-radius: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border: none;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    transition: 100ms;
+    transform: translate(30px, -10px);
+}
+
+.profile-icon:hover {
+    box-shadow: 0 0 1.5rem red;
+}
+
+#profile-overlay {
+    display: none;
+    width: 200px;
+    height: 100px;
+    border-radius: 1rem;
+    transform: translate(-100px, -20px);
+}
+
+#profile-overlay ul {
+    background-color: #222222;
+    border-radius: 1rem;
+    list-style-type: none;
+}
+
+#profile-overlay li {
+    border-radius: 1rem;
+    padding: 0;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile-overlay a {
+    margin: 0;
+}
+
+#profile-overlay li:hover {
+    background-color: #1f1f1f;
+}
+
+.profile-icon + #profile-overlay:active,
+.profile-icon:focus + #profile-overlay {
+    display: block;
+}
+
+@media screen and (max-width: 780px) {
     .header-item-btn > a {
         font-size: 1.3rem;
     }
@@ -192,18 +253,21 @@ header {
     }
 }
 
-@media screen and (max-width: 620px) {
-    header  * {
-        margin: 0;
-        gap: 0;
-    }
-
+@media screen and (max-width: 650px) {
     header {
         display: grid;
     }
 
     .header-item-btn > a {
         padding: 0.5rem;
+    }
+
+    .profile-icon {
+        transform: translate(20px, -10px);
+    }
+
+    #profile-overlay {
+        transform: translate(-50px, -20px);
     }
 }
 
@@ -291,4 +355,6 @@ footer {
     .footer-btn:last-child {
         padding-right: 1rem;
     }
+
+
 }

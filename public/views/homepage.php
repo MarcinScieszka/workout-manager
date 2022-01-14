@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
 </head>
 <body>
     <?php
-        include('header.php');
+        include('init.php');
     ?>
     <section>
         <div class="hero">
@@ -88,7 +89,7 @@
         </div>
     </section>
     <?php
-        include('footer.php');
+        include('elements/footer.php');
     ?>
 </body>
 </html>

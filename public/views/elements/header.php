@@ -12,6 +12,6 @@
         <a href="/contact">Contact</a>
     </div>
     <div class="header-item header-item-btn">
-        <a href="/login">Login</a>
+        <a href="/login">Log in</a>
     </div>
 </header>

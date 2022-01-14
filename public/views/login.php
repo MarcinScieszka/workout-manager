@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,14 +11,15 @@
 </head>
 <body>
     <?php
-        include('header.php');
+        include('init.php');
     ?>
-    
     <section>
         <div class="content">
-            <h2>Login</h2>
+            <h2>Log in to your account</h2>
             <form action="login" method="POST">
+                <h3>Email</h3>
                 <input name="email" type="email" placeholder="Email" required>
+                <h3>Password</h3>
                 <input name="password" type="password" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
@@ -30,12 +32,11 @@
                     }
                 ?>
             </div>
-            <h3>Do not have an account?</h3>
+            <h4>Do not have an account?</h4>
             <a href="/register">Register</a>
     </section>
-
     <?php
-        include('footer.php');
+        include('elements/footer.php');
     ?>
 </body>
 </html>

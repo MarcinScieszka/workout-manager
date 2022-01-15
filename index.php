@@ -15,4 +15,5 @@ Router::get('contact', 'DefaultController');
 Router::get('', 'DefaultController');
 Router::get('dashboard', 'WorkoutController');
 Router::get('settings', 'DefaultController');
+Router::get('test', 'DefaultController');
 Router::run($path);

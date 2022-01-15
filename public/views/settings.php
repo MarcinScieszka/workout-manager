@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION['user'])) {
-        header("Location: http://$_SERVER[HTTP_HOST]/");
+        header("Location: http://$_SERVER[HTTP_HOST]/login");
         exit();
     }
 ?>
@@ -17,21 +17,21 @@
 </head>
 <body>
     <?php include('init.php'); ?>
-    
-    <h2>Personal info</h2>
+    <section class="container">
+        <div class="personal-info">
+            <h2>Personal info</h2>
+                
+            <h3>Email</h3>
+            <h4> <?= $_SESSION['user']; ?> </h4>
         
-    <h3>Email</h3>
-
-    <h3>Name</h3>
-    
-    <h3>Gender</h3>
-    
-    <h3>Password</h3>
-    
-    <!-- TODO: password: last changed time -->
-
-
-
+            <h3>Name</h3>
+            
+            <h3>Gender</h3>
+            
+            <h3>Password</h3>
+            <!-- TODO: password: last changed time -->
+        </div>   
+    </section>
     <?php
         include('elements/footer-logged-in.php');
     ?>

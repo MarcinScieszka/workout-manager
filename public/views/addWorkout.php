@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION['user'])) {
-        header("Location: http://$_SERVER[HTTP_HOST]/");
+        header("Location: http://$_SERVER[HTTP_HOST]/login");
         exit();
     }
 ?>
@@ -22,7 +22,7 @@
     <section class="container">
         <div class="workout-form">
             <h1>Add workout</h1>
-            <form action="addWorkout" method="POST">
+            <form class="add-workout-form" action="addWorkout" method="POST">
                 <div class="messages">
                     <?php
                         if(isset($messages)) {
@@ -32,28 +32,46 @@
                         }
                     ?>
                 </div>
-                <h3>Workout name</h3>
-                <input name="workout-name" type="text" placeholder="Name...">
-                <h3>Difficulty</h3>
-                <select class="workout-difficulty" name="workout-difficulty">
-                    <option value="Just a training" selected>Just a training (Easy)</option>
-                    <option value="Hard work">Hard work (Medium)</option>
-                    <option value="Blood, sweat and tears">Blood, sweat and tears (Hard)</option>
-                    <option value="Death march">Death march (Very Hard)</option>
-                </select>
-                <h3>Workout type</h3>
-                <select class="workout-type" name="workout-type">
-                    <option value="Armwrestling" selected>Armwrestling</option>
-                    <option value="Bodybuilding">Bodybuilding</option>
-                    <option value="Powerlifting">Powerlifting</option>
-                </select>
-<!--                <input name="workout-type" type="text" placeholder="Type of workout...">-->
-                <h3>Exercises</h3>
-                <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
-                <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
-                <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
-                <!-- TODO: button "+" that adds another exercise" -->
-                <input type="submit" value="Add workout">
+                <div>
+                    <h3>Workout name</h3>
+                    <input required name="workout-name" type="text" placeholder="Name...">
+                </div>
+                <div>
+                    <h3>Difficulty</h3>
+                    <select class="workout-difficulty" name="workout-difficulty">
+                        <option value="Just a training" selected>Just a training (Easy)</option>
+                        <option value="Hard work">Hard work (Medium)</option>
+                        <option value="Blood, sweat and tears">Blood, sweat and tears (Hard)</option>
+                        <option value="Death march">Death march (Very Hard)</option>
+                    </select>
+                </div>
+                <div>
+                    <h3>Workout type</h3>
+                    <select class="workout-type" name="workout-type">
+                        <option value="Armwrestling" selected>Armwrestling</option>
+                        <option value="Bodybuilding">Bodybuilding</option>
+                        <option value="Powerlifting">Powerlifting</option>
+                    </select>
+                </div>
+                <div>
+                    <h3>Exercises</h3>
+                    <input name="workout-exercises[]" type="text" placeholder="Exercise name...">
+
+                    <button class="dropdown-button" type="button">
+                        <div>
+                            <svg style="width: 25px; height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                <path d="M8 10.293l4.646-4.647a.5.5 0 0 1 .708.708l-5 5a.5.5 0 0 1-.708 0l-5-5a.5.5 0 1 1 .708-.708L8 10.293z" fill="#757575" fill-rule="evenodd" style="--darkreader-inline-fill: #9e9689;" data-darkreader-inline-fill=""></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <input type="checkbox" id="back" name="back">
+                    <label for="back">Back</label>
+                    <!-- TODO: button "+" that adds another exercise" -->
+                </div>
+                <div>
+                    <input type="submit" value="Add workout">
+                </div>
+
             </form>
         </div>
     </section>

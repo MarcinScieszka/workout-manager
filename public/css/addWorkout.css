@@ -1,0 +1,34 @@
+section.container {
+    flex-direction: column;
+}
+
+.workout-form {
+    /* background-color: indigo; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: max-content;
+    padding: 1rem;
+}
+
+.add-workout-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-workout-form h3 {
+    padding: 0;
+    margin: 0.5rem 0 0;
+}
+
+button.dropdown-button {
+    background-color: transparent;
+    border-radius: 100%;
+    padding: 0.3rem;
+}
+
+button.dropdown-button:hover {
+    background-color: #434343;
+}

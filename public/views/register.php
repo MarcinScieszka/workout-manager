@@ -30,7 +30,7 @@
                 <input name="password" type="password" placeholder="Password">
                 <h3>Confirm password</h3>
                 <input name="confirm-password" type="password" placeholder="Confirm Password">
-                <button type="submit">Register</button>
+                <button class="btn" type="submit">Register</button>
                 <div class="messages">
                     <?php
                     if(isset($messages)) {

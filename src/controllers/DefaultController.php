@@ -15,4 +15,8 @@ class DefaultController extends AppController {
     public function settings() {
         $this->render('settings');
     }
+
+    public function test() {
+        $this->render('test');
+    }
 }

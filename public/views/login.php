@@ -27,7 +27,7 @@
                 <input name="email" type="email" placeholder="Email" required>
                 <h3>Password</h3>
                 <input name="password" type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
+                <button class="btn" type="submit">Login</button>
             </form>
             <div class="messages">
                 <?php

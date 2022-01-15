@@ -17,24 +17,28 @@ class SecurityController extends AppController
             return $this->render('login', ['messages' => ['Wrong email format!']]);
         }
 
-        $user = $userRepository->getUser($_POST["email"]);
+        $email = htmlspecialchars($_POST['email']);
+
+        $user = $userRepository->getUser($email);
         
         if(!$user) {
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
-        if (!password_verify($_POST["password"], $user->getPassword())) {
+        $password = htmlspecialchars($_POST["password"]);
+
+        if (!password_verify($password, $user->getPassword())) {
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
 //        TODO: after bad attempt, display provided email
 
         session_start();
-        $_SESSION['user'] = htmlspecialchars($_POST['email']);
+        $_SESSION['user'] = $email;
 
-//        TODO: redirect when trying to manually go to /dashboard
-
-        $this->render('dashboard');
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/dashboard");
+        exit();
     }
 
     public function register() {
@@ -48,7 +52,9 @@ class SecurityController extends AppController
             return $this->render('register', ['messages' => ['Wrong email format!']]);
         }
 
-        //        TODO: check if email is already used
+        if ($userRepository->checkIfUserExists($_POST["email"]) == true) {
+            return $this->render('register', ['messages' => ['Email already used!']]);
+        }
 
         if ($_POST["password"] != $_POST["confirm-password"]) {
             return $this->render('register', ['messages' => ['Passwords do not match!']]);

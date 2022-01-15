@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php
+    session_start();
+    if (!isset($_SESSION['user'])) {
+        header("Location: http://$_SERVER[HTTP_HOST]/");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +29,7 @@
         </section>
     </div>
     <?php
-        include('elements/footer.php');
+        include('elements/footer-logged-in.php');
     ?>
 </body>
 </html>

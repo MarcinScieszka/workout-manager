@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start();
+    if (isset($_SESSION['user'])) {
+        header("Location: http://$_SERVER[HTTP_HOST]/dashboard");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

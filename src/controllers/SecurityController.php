@@ -30,7 +30,7 @@ class SecurityController extends AppController
 //        TODO: after bad attempt, display provided email
 
         session_start();
-        $_SESSION["user"] = htmlspecialchars($_POST['email']);
+        $_SESSION['user'] = htmlspecialchars($_POST['email']);
 
 //        TODO: redirect when trying to manually go to /dashboard
 

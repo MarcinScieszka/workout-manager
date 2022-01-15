@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +34,12 @@
         </div>
     </div>
     <?php
-        include('elements/footer.php');
+        if (isset($_SESSION['user'])) {
+            include('elements/footer-logged-in.php');
+        }
+        else {
+            include('elements/footer.php');
+        }
     ?>
 </body>
 </html>

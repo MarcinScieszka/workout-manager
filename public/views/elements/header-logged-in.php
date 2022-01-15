@@ -1,6 +1,6 @@
 <header>
     <div class="header-item">
-        <a href="/"><img src="public/img/logo_text.svg" alt="Workager logo" id="logo"></a>
+        <a href="/dashboard"><img src="public/img/logo_text.svg" alt="Workager logo" id="logo"></a>
     </div>
     <div class="header-item header-item-btn">
         <a href="/plans">Plans</a>
@@ -18,7 +18,9 @@
                     <a href="/settings">Settings</a>
                 </li>
                 <li>
-                    <form method="POST" action="logout"><button type="submit">Logout</button></form>
+                    <form method="POST" action="logout">
+                        <button type="submit">Logout</button>
+                    </form>
                 </li>
             </ul>
         </nav>

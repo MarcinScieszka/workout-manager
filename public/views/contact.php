@@ -30,9 +30,13 @@
 
         </div>
     </section>
-
     <?php
+    if (isset($_SESSION['user'])) {
+        include('elements/footer-logged-in.php');
+    }
+    else {
         include('elements/footer.php');
+    }
     ?>
 </body>
 </html>

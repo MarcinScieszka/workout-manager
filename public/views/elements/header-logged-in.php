@@ -12,14 +12,13 @@
         <button class="profile-icon">
             <img src="/public/img/profile-picture.png" alt="profile-button">
         </button>
-<!--        <div id="profile-overlay"></div>-->
         <nav id="profile-overlay">
             <ul>
                 <li>
-                    <a href="">Settings</a>
+                    <a href="/settings">Settings</a>
                 </li>
                 <li>
-                    <a href="">Log out</a>
+                    <form method="POST" action="logout"><button type="submit">Logout</button></form>
                 </li>
             </ul>
         </nav>

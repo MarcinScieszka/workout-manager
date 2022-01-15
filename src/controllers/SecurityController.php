@@ -32,13 +32,8 @@ class SecurityController extends AppController
         session_start();
         $_SESSION["user"] = htmlspecialchars($_POST['email']);
 
-//        setcookie("user", htmlspecialchars($_POST['email']), time() + 120, "/"); // TODO: increase time
-
 //        TODO: redirect when trying to manually go to /dashboard
 
-//        $url = "http://$_SERVER[HTTP_HOST]";
-//        header("Location: {$url}/dashboard");
-//        exit();
         $this->render('dashboard');
     }
 
@@ -70,8 +65,25 @@ class SecurityController extends AppController
         return $this->render('login');
     }
 
-    function logout() {
-//        setcookie("user", "", time() - 3600);
+    public function logout() {
+        if (!$this->isPost()) {
+            return;
+        }
+
+        session_start();
+        session_unset();
+
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
         session_destroy();
+
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/login");
+        exit();
     }
 }

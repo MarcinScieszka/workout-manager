@@ -32,7 +32,7 @@
                     }
                 ?>
             </div>
-            <h4>Do not have an account?</h4>
+            <h4>Don't have an account?</h4>
             <a href="/register">Register</a>
     </section>
     <?php

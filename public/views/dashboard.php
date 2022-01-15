@@ -13,7 +13,7 @@
     <?php
         include('init.php');
     ?>
-    <div class="dashboard-containter">
+    <div class="dashboard-container">
         <section class="dashboard-section-1" >
             <h2>Let's get to work!</h2>
             <div class="workout-plan-container">

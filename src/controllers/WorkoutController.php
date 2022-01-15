@@ -14,7 +14,6 @@ class WorkoutController extends AppController {
     }
 
     public function addWorkout() {
-        session_start();
         if ($this->isPost()) {
             $workout = new Workout($_POST['workout-name'], $_POST['workout-difficulty'], $_POST['workout-type']); //$_POST['workout-exercises']);
             $this->workoutRepository->addWorkout($workout);
@@ -26,14 +25,11 @@ class WorkoutController extends AppController {
     }
 
     public function workouts() {
-        session_start();
         $workouts = $this->workoutRepository->getWorkouts();
         $this->render('workouts', ['workouts' => $workouts]);
     }
 
     public function dashboard() {
-        session_start();
         $this->render('dashboard');
     }
-
 }

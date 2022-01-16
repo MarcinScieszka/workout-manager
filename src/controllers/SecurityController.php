@@ -27,16 +27,16 @@ class SecurityController extends AppController
 
         $password = htmlspecialchars($_POST["password"]);
         if (!password_verify($password, $user->getPassword())) {
-            $securityRepository->login_attempt($email, false);
+            $securityRepository->login($email, false);
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
-        $securityRepository->login_attempt($email, true);
-
-//        TODO: after bad attempt, display provided email
-
         session_start();
         $_SESSION['user'] = $email;
+
+        $securityRepository->login($email, true);
+
+//        TODO: after bad attempt, display provided email
 
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/dashboard");
@@ -79,6 +79,10 @@ class SecurityController extends AppController
         }
 
         session_start();
+
+        $securityRepository = new SecurityRepository();
+        $securityRepository->logout($_SESSION['user']);
+
         session_unset();
 
         if (ini_get("session.use_cookies")) {

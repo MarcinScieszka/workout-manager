@@ -6,7 +6,7 @@ require_once __DIR__."/../models/User.php";
 class UserRepository extends Repository {
 
     public function getUser(string $email): ?User {
-        $sql = 'SELECT * FROM public.user WHERE email = :email';
+        $sql = 'SELECT * FROM public.user WHERE email = :email;';
         $stmt = $this->database->connect()->prepare($sql);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
@@ -28,13 +28,13 @@ class UserRepository extends Repository {
         try {
             $db->beginTransaction();
 
-            $sql = 'INSERT INTO public.user (email, password, created_at)  VALUES (?, ?, ?)';
+            $sql = 'INSERT INTO public.user (email, password, created_at)  VALUES (?, ?, ?);';
             $stmt = $db->prepare($sql);
             $created_at = date('Y-m-d');
             $stmt->execute([$email, $password, $created_at]);
 
             $user_id = $db->lastInsertId();
-            $sql = 'INSERT INTO public.user_details (id_user) VALUES (:user_id)';
+            $sql = 'INSERT INTO public.user_details (id_user) VALUES (:user_id);';
             $stmt = $db->prepare($sql);
             $stmt->execute(['user_id' => $user_id]);
 
@@ -49,7 +49,7 @@ class UserRepository extends Repository {
     public function checkIfUserExists(string $email): bool {
         $result = false;
 
-        $sql = 'SELECT * FROM public.user WHERE email = :email';
+        $sql = 'SELECT * FROM public.user WHERE email = :email;';
         $stmt = $this->database->connect()->prepare($sql);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();

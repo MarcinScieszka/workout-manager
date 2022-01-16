@@ -3,33 +3,35 @@
 require_once 'AppController.php';
 require_once __DIR__.'/../models/User.php';
 require_once __DIR__.'/../repository/UserRepository.php';
+require_once __DIR__.'/../repository/SecurityRepository.php';
 
 class SecurityController extends AppController
 {
     public function login() {
-        $userRepository = new UserRepository();
-
         if (!$this->isPost()) {
             return $this->render('login');
         }
+
+        $userRepository = new UserRepository();
+        $securityRepository = new SecurityRepository();
 
         if (filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) == false) {
             return $this->render('login', ['messages' => ['Wrong email format!']]);
         }
 
         $email = htmlspecialchars($_POST['email']);
-
         $user = $userRepository->getUser($email);
-        
         if(!$user) {
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
 
         $password = htmlspecialchars($_POST["password"]);
-
         if (!password_verify($password, $user->getPassword())) {
+            $securityRepository->login_attempt($email, false);
             return $this->render('login', ['messages' => ['Wrong email or password!']]);
         }
+
+        $securityRepository->login_attempt($email, true);
 
 //        TODO: after bad attempt, display provided email
 

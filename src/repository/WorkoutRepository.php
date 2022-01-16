@@ -61,7 +61,7 @@ class WorkoutRepository extends Repository
             $db->beginTransaction();
 
             $sql = 'SELECT id FROM workout_type WHERE type = ?';
-            $stmt = $db->prepare ($sql);
+            $stmt = $db->prepare($sql);
             $wkt_type = $workout->getType();
             $stmt->execute([$wkt_type]);
             $selected_type = $stmt->fetch(PDO::FETCH_ASSOC);

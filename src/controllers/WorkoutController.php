@@ -15,13 +15,20 @@ class WorkoutController extends AppController {
 
     public function addWorkout() {
         if ($this->isPost()) {
-            $workout = new Workout($_POST['workout-name'], $_POST['workout-difficulty'], $_POST['workout-type']); //$_POST['workout-exercises']);
+
+
+            $workout = new Workout($_POST['workout-name'], $_POST['workout-difficulty'], $_POST['workout-type'], $_POST['exercises']);
             $this->workoutRepository->addWorkout($workout);
 
-            return $this->render('workouts', ['messages' => $this->messages, 'workouts' => $this->workoutRepository->getWorkouts()]);
+//            TODO: go to 'myWorkouts' instead of 'workouts' -> use user's id, show workouts created by given user
+            return $this->render('workouts', [
+                'messages' => $this->messages, 'workouts' => $this->workoutRepository->getWorkouts()
+            ]);
         }
 
-        return $this->render('addWorkout', ['messages' => $this->messages]);
+        return $this->render('addWorkout', [
+            'messages' => $this->messages, 'exercises' => $this->workoutRepository->getExercises()
+        ]);
     }
 
     public function workouts() {

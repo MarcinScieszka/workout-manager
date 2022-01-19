@@ -16,24 +16,25 @@
     <?php
         include('init.php');
     ?>
-    <div class="workouts-container">
-        <div class="workouts-list">
-            <?php
-                foreach ($workouts as $wkt): ?>
-                <div id="workout-item" class="workout-crest">
-                    <h3><?=$wkt->getName();?></h3>
-                    <div class="workout-inside-box">
-                    <h3><?=$wkt->getDifficulty();?></h3>
-    <!--                    <h4>-->
-    <!--                           foreach (... as $exercise) {}-->
-    <!--                       </h4>-->
+    <section>
+        <div class="workouts-container">
+            <div class="workouts-list">
+                <?php foreach ($workouts as $wkt): ?>
+                    <div id="workout-item" class="workout-crest">
+                        <h3><?=$wkt->getName();?></h3>
+                        <div class="workout-inside-box">
+                            <h3><?=$wkt->getDifficulty();?></h3>
+                            <!--                    <h4>-->
+                            <!--                           foreach (... as $exercise) {}-->
+                            <!--                       </h4>-->
+                        </div>
+                        <h3><?=$wkt->getType();?></h3>
+                        <a class="workout-details-btn workout-crest" href="/workoutDetails">See details</a>
                     </div>
-                    <h3><?=$wkt->getType();?></h3>
-                    <a class="workout-details-btn workout-crest" href="/workoutDetails">See details</a>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
+    </section>
     <?php
         if (isset($_SESSION['user'])) {
             include('elements/footer-logged-in.php');

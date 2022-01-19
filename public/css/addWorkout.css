@@ -3,7 +3,6 @@ section.container {
 }
 
 .workout-form {
-    /* background-color: indigo; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,19 +15,87 @@ section.container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .add-workout-form h3 {
     padding: 0;
-    margin: 0.5rem 0 0;
+}
+
+select:hover {
+    cursor: pointer;
 }
 
 button.dropdown-button {
     background-color: transparent;
-    border-radius: 100%;
-    padding: 0.3rem;
+    border-radius: 1rem;
+    width: 20px;
+    height: 22px;
 }
 
 button.dropdown-button:hover {
-    background-color: #434343;
+    cursor: pointer;
+    background-color: #3c3c3c;
+}
+
+.exercises-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.exercise-types-grid {
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.exercise-type-box {
+    border-radius: 1rem;
+    background-color: #ededed;
+    margin-top: 1rem;
+    padding: 0.25rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.exercise-type-box h3{
+    color: #0f0f0f;
+}
+
+label {
+    padding-right: 2rem;
+}
+
+input[type="checkbox"] {
+    margin: 1rem 0;
+
+}
+
+.add-workout-btn {
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 1040px) {
+    .exercise-types-grid {
+        width: 600px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .exercise-types-grid {
+        max-width: 360px;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .exercise-types-grid {
+        max-width: 340px;
+        gap: 0.5rem;
+    }
 }

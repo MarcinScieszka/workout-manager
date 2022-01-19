@@ -54,7 +54,7 @@ class WorkoutRepository extends Repository
         return $result;
     }
 
-    public function addWorkout(Workout $workout) : void {
+    public function addWorkout(Workout $workout): void {
         $db = $this->database->connect();
 
         try {
@@ -88,5 +88,21 @@ class WorkoutRepository extends Repository
             $db->rollback();
             throw $e;
         }
+    }
+
+    public function getExercises(): array {
+        $db = $this->database->connect();
+
+        $stmt =  $db->prepare('
+            SELECT exercise_name, exercise_type FROM exercise e JOIN exercise_type et ON et.id = e.id_exercise_type;
+        ');
+        $stmt->execute();
+        $result = [];
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $exercise_type= $row['exercise_type'];
+            $exercise_name = $row['exercise_name'];
+            $result[$exercise_type][] = $exercise_name;
+        }
+        return $result;
     }
 }

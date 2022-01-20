@@ -10,8 +10,8 @@ section {
 
 .content {
     background: rgba(0, 0, 0, 0.35);
-    max-width: 400px;
-    max-height: 600px;
+    width: 400px;
+    min-height: 600px;
     padding: 3rem;
     border-radius: 1rem;
     display: flex;
@@ -62,6 +62,7 @@ section {
 @media screen and (max-width: 500px) {
     .content {
         padding: 1rem;
+        width: 350px;
     }
 }
 

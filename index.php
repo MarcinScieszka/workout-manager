@@ -13,7 +13,7 @@ Router::post('register', 'SecurityController');
 Router::post('addWorkout', 'WorkoutController');
 Router::get('contact', 'DefaultController');
 Router::get('', 'DefaultController');
-Router::get('dashboard', 'WorkoutController');
+Router::get('dashboard', 'DefaultController');
 Router::get('settings', 'DefaultController');
 Router::get('test', 'DefaultController');
 Router::run($path);

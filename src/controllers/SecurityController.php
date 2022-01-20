@@ -14,21 +14,30 @@ class SecurityController extends AppController
 
         $userRepository = new UserRepository();
         $securityRepository = new SecurityRepository();
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST["password"]);
 
         if (filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) == false) {
-            return $this->render('login', ['messages' => ['Wrong email format!']]);
+            return $this->render('login', ['messages' => ['Wrong email format!'],
+                'provided_email' => $email,
+                'provided_password' => $password
+                ]);
         }
 
-        $email = htmlspecialchars($_POST['email']);
         $user = $userRepository->getUser($email);
         if(!$user) {
-            return $this->render('login', ['messages' => ['Wrong email or password!']]);
+            return $this->render('login', ['messages' => ['Wrong email or password!'],
+                'provided_email' => $email,
+                'provided_password' => $password
+            ]);
         }
 
-        $password = htmlspecialchars($_POST["password"]);
         if (!password_verify($password, $user->getPassword())) {
             $securityRepository->login($email, false);
-            return $this->render('login', ['messages' => ['Wrong email or password!']]);
+            return $this->render('login', ['messages' => ['Wrong email or password!'],
+                'provided_email' => $email,
+                'provided_password' => $password
+            ]);
         }
 
         session_start();
@@ -36,39 +45,53 @@ class SecurityController extends AppController
 
         $securityRepository->login($email, true);
 
-//        TODO: after bad attempt, display provided email
-
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/dashboard");
         exit();
     }
 
     public function register() {
-        $userRepository = new UserRepository();
-
         if (!$this->isPost()) {
             return $this->render('register');
         }
 
+        $userRepository = new UserRepository();
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $password_conf = $_POST['confirm-password'];
+
         if (!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
-            return $this->render('register', ['messages' => ['Wrong email format!']]);
+            return $this->render('register', ['messages' => ['Wrong email format!'],
+                'provided_email' => $email,
+                'provided_password' => $password,
+                'provided_password_conf' => $password_conf
+            ]);
+        }
+        if ($userRepository->checkIfUserExists($email) == true) {
+            return $this->render('register', ['messages' => ['Email already used!'],
+                'provided_email' => $email,
+                'provided_password' => $password,
+                'provided_password_conf' => $password_conf
+            ]);
         }
 
-        if ($userRepository->checkIfUserExists($_POST["email"]) == true) {
-            return $this->render('register', ['messages' => ['Email already used!']]);
+        $password_pattern = ' ((?=.*[A-Z])(?=.*[a-z])(?=.*\d).{7,200}) ';
+        if(!preg_match($password_pattern, $password)) {
+            return $this->render('register', ['messages' => ['Make sure your password is 8 characters long 
+            and contains at least one: number, special character, lowercase letter and uppercase letter'],
+                'provided_email' => $email,
+                'provided_password' => $password
+            ]);
         }
-
-        if ($_POST["password"] != $_POST["confirm-password"]) {
-            return $this->render('register', ['messages' => ['Passwords do not match!']]);
+        if ($password != $_POST["confirm-password"]) {
+            return $this->render('register', ['messages' => ['Passwords do not match!'],
+                'provided_email' => $email,
+                'provided_password' => $password
+            ]);
         }
+        $password = password_hash($password, PASSWORD_BCRYPT);
 
-//        TODO: after bad attempt, display provided email
-
-//        TODO: add requirement for special symbols in password
-
-        $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
-
-        $userRepository->addUser($_POST["email"] , $password);
+        $userRepository->addUser($email , $password);
 
         return $this->render('login');
     }

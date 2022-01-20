@@ -19,4 +19,8 @@ class DefaultController extends AppController {
     public function test() {
         $this->render('test');
     }
+
+    public function dashboard() {
+        $this->render('dashboard');
+    }
 }

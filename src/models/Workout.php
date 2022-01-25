@@ -7,12 +7,11 @@ class Workout
     private string $type;
     private array $exercises = [];
 
-    public function __construct(string $name, string $difficulty, string $type)//, array $exercises)
-    {
+    public function __construct(string $name, string $difficulty, string $type, array $exercises) {
         $this->name = $name;
         $this->difficulty = $difficulty;
         $this->type = $type;
-//        $this->exercises = $exercises;
+        $this->exercises = $exercises;
     }
 
     public function getName() : string
@@ -45,8 +44,8 @@ class Workout
         $this->type = $type;
     }
 
-//    public function getExercises(): array
-//    {
-//        return $this->exercises;
-//    }
+    public function getAllExercises(): array
+    {
+        return $this->exercises;
+    }
 }

@@ -46,12 +46,24 @@ class UserRepository extends Repository {
         }
     }
 
+    public function getUserId(string $email): int {
+        $db = $this->database->connect();
+
+        $sql = 'SELECT id FROM public.user WHERE email = :email;';
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $user['id'];
+    }
+
     public function checkIfUserExists(string $email): bool {
         $result = false;
 
         $sql = 'SELECT * FROM public.user WHERE email = :email;';
         $stmt = $this->database->connect()->prepare($sql);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);

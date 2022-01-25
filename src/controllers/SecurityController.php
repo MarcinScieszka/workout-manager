@@ -42,6 +42,7 @@ class SecurityController extends AppController
 
         session_start();
         $_SESSION['user'] = $email;
+        $_SESSION['user_id'] = $userRepository->getUserId($email);
 
         $securityRepository->login($email, true);
 
@@ -102,9 +103,8 @@ class SecurityController extends AppController
         }
 
         session_start();
-
         $securityRepository = new SecurityRepository();
-        $securityRepository->logout($_SESSION['user']);
+        $securityRepository->logout($_SESSION['user_id']);
 
         session_unset();
 

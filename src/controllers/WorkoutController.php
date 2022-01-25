@@ -13,30 +13,42 @@ class WorkoutController extends AppController {
         $this->workoutRepository = new WorkoutRepository();
     }
 
-    public function addWorkout() {
-        if ($this->isPost()) {
-
-
-            $workout = new Workout($_POST['workout-name'], $_POST['workout-difficulty'], $_POST['workout-type'], $_POST['exercises']);
-            $this->workoutRepository->addWorkout($workout);
-
-//            TODO: go to 'myWorkouts' instead of 'workouts' -> use user's id, show workouts created by given user
-            return $this->render('workouts', [
-                'messages' => $this->messages, 'workouts' => $this->workoutRepository->getWorkouts()
-            ]);
-        }
-
-        return $this->render('addWorkout', [
-            'messages' => $this->messages, 'exercises' => $this->workoutRepository->getExercises()
-        ]);
-    }
-
     public function workouts() {
-        $workouts = $this->workoutRepository->getWorkouts();
+        $workouts = $this->workoutRepository->getWorkouts(1);
         $this->render('workouts', ['workouts' => $workouts]);
     }
 
-    public function dashboard() {
-        $this->render('dashboard');
+    public function myWorkouts() {
+        session_start();
+        $userWorkouts = $this->workoutRepository->getWorkouts($_SESSION['user_id']);
+        $this->render('myWorkouts', ['userWorkouts' => $userWorkouts]);
+    }
+
+    public function addWorkout() {
+        if (!$this->isPost()) {
+            return $this->render('addWorkout', [
+                'messages' => $this->messages, 'exercises' => $this->workoutRepository->getExercises()
+            ]);
+        }
+
+        if(empty($_POST['exercises'])) {
+            return $this->render('addWorkout', [
+                'messages' => ['Select at least one exercise'], 'exercises' => $this->workoutRepository->getExercises()
+            ]);
+        }
+
+        if($this->workoutRepository->checkIfWorkoutNameExists($_POST['workout-name'])){
+            // TODO: (?) only check if name exists in user's workouts
+            // TODO: (?) add .invalid-input style to workout-name form
+            return $this->render('addWorkout', [
+                'messages' => ['This workout name already exists!'], 'exercises' => $this->workoutRepository->getExercises()
+            ]);
+        }
+
+        $workout = new Workout($_POST['workout-name'], $_POST['workout-difficulty'], $_POST['workout-type'], $_POST['exercises']);
+        $this->workoutRepository->addWorkout($workout);
+
+        $userWorkouts = $this->workoutRepository->getWorkouts($_SESSION['user_id']);
+        return $this->render('myWorkouts', ['userWorkouts' => $userWorkouts]);
     }
 }

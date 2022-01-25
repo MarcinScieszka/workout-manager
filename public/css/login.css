@@ -54,11 +54,6 @@ section {
     background-color: var(--red);;
 }
 
-.messages {
-    color: var(--red);
-    padding: 1rem;
-}
-
 @media screen and (max-width: 500px) {
     .content {
         padding: 1rem;

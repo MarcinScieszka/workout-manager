@@ -29,6 +29,27 @@
     font-weight: bolder;
 }
 
+.thank-you-msg {
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.go-back-btn a {
+    background: white;
+    width: 10rem;
+    color: black;
+    padding: 0.7rem;
+}
+
+.go-back-btn a:hover {
+    background-color: #ff4c4c;
+    color: white;
+}
+
 .form-btn {
     width: 120px;
     background-color: var(--red);

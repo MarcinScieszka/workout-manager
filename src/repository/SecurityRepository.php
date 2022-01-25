@@ -17,13 +17,11 @@ class SecurityRepository extends Repository
             $stmt = $db->prepare($sql);
             $stmt->execute([$email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            $_SESSION['user_id'] = $user['id'];
+            $id_user = $user['id'];
 
             $sql = 'INSERT INTO public.login (login_time, successful, id_user, session_id)  VALUES (:login_time, :successful, :id_user, :session_id);';
             $stmt = $db->prepare($sql);
             $session_id = session_id();
-            $id_user = $_SESSION['user_id'];
-//            $stmt->execute(['login_time' => $login_time, 'successful' => $successful, 'id_user' => $_SESSION['user_id'], ['session_id' => $session_id]]);
             $stmt->bindParam(':login_time', $login_time);
             $stmt->bindParam(':successful', $successful, PDO::PARAM_BOOL);
             $stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
@@ -35,7 +33,7 @@ class SecurityRepository extends Repository
                 $stmt =  $db->prepare('
                    UPDATE public.user SET logged_in = true WHERE id = ?;
                 ');
-                $stmt->execute([$_SESSION['user_id']]);
+                $stmt->execute([$id_user]);
             }
 
             $db->commit();
@@ -46,7 +44,7 @@ class SecurityRepository extends Repository
         }
     }
 
-    public function logout(string $email) {
+    public function logout(int $id_user) {
         $logout_time = date('Y-m-d H:i:s');
 
         $db = $this->database->connect();
@@ -64,7 +62,7 @@ class SecurityRepository extends Repository
             $stmt =  $db->prepare('
                UPDATE public.user SET logged_in = false WHERE id = ?;
             ');
-            $stmt->execute([$_SESSION['user_id']]);
+            $stmt->execute([$id_user]);
 
             $db->commit();
         }

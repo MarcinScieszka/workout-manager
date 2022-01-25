@@ -22,6 +22,9 @@
     <div class="dashboard-container">
         <section class="dashboard-section-1" >
             <h2>Let's get to work!</h2>
+
+            <a class="btn-navigate" href="/myWorkouts">My workouts</a>
+
             <div class="dashboard-grid">
                 <div class="dashboard-item">
                     <img src="public/img/workout-plan-homepage.png" alt="Workout plan">
@@ -32,15 +35,12 @@
                     <a class="workouts-btn" href="/workouts">Choose a single workout</a>
                 </div>
                 <div class="dashboard-item">
-                    <!-- <img src="public/img/xx.png" alt="Create a workout plan"> -->
                     <a class="add-btn" href="/addPlan">Create a workout plan</a>
                 </div>
                 <div class="dashboard-item">
-                    <!-- <img src="public/img/xx.png" alt="Create a single workout"> -->
                     <a class="add-btn" href="/addWorkout">Create a single workout</a>
                 </div>
             </div>
-
         </section>
     </div>
     <?php

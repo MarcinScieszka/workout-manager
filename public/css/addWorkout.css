@@ -1,3 +1,9 @@
+.invalid-input {
+    border: 3px solid red;
+    box-shadow: 0 0 0.7rem red;
+    outline: none;
+}
+
 section.container {
     flex-direction: column;
 }

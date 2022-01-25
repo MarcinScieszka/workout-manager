@@ -66,6 +66,12 @@ a {
     margin: 0.5rem;
 }
 
+.messages {
+    color: var(--red);
+    padding: 1rem;
+    font-size: 1.2rem;
+}
+
 .grid-col-span-3 {
     grid-column: span 3;
 }
@@ -110,6 +116,22 @@ button:hover {
 
 button.btn:hover {
     background-color: var(--red-hover);
+}
+
+.btn-navigate {
+    width: 12rem;
+    height: 3rem;
+    margin: 1rem;
+    padding: 0.7rem;
+    font-size: 1.2rem;
+    background-color: #5d36cd;
+    color: #fff;
+    border-radius: 1rem;
+    transition: 0.3s;
+}
+
+.btn-navigate:hover {
+    background-color: #043e77;
 }
 
 section.container {

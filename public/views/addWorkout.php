@@ -24,15 +24,6 @@
         <div class="workout-form">
             <h1>Add workout</h1>
             <form class="add-workout-form" action="addWorkout" method="POST">
-                <div class="messages">
-                    <?php
-                        if(isset($messages)) {
-                            foreach ($messages as $message) {
-                                echo $message;
-                            }
-                        }
-                    ?>
-                </div>
                 <h3>Workout name</h3>
                 <input required name="workout-name" type="text" placeholder="Name...">
                 <h3>Difficulty</h3>
@@ -75,6 +66,15 @@
                 <!-- TODO: button "+" that adds another exercise" -->
                 <div class="add-workout-btn">
                     <input type="submit" value="Add workout">
+                </div>
+                <div class="messages">
+                    <?php
+                    if(isset($messages)) {
+                        foreach ($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
                 </div>
             </form>
         </div>

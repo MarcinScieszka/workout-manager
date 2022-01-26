@@ -134,9 +134,28 @@ button.btn:hover {
     background-color: #043e77;
 }
 
+.go-back-btn a {
+    background: white;
+    width: 10rem;
+    color: black;
+    padding: 0.7rem;
+}
+
+.go-back-btn a:hover {
+    background-color: #ff4c4c;
+    color: white;
+}
+
 section.container {
     min-height: 850px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-flex-col {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }

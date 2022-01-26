@@ -21,9 +21,9 @@
         include('init.php');
     ?>
     <section class="container">
-        <div class="workout-form">
+        <div class="workout-form content-flex-col">
             <h1>Add workout</h1>
-            <form class="add-workout-form" action="addWorkout" method="POST">
+            <form class="add-workout-form content-flex-col" action="addWorkout" method="POST">
                 <h3>Workout name</h3>
                 <input required name="workout-name" type="text" placeholder="Name...">
                 <h3>Difficulty</h3>

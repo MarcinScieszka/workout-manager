@@ -12,6 +12,7 @@ Router::post('logout', 'SecurityController');
 Router::post('register', 'SecurityController');
 Router::post('addWorkout', 'WorkoutController');
 Router::get('myWorkouts', 'WorkoutController');
+Router::get('workout', 'WorkoutController');
 Router::post('contact', 'CommunicationController');
 Router::get('', 'DefaultController');
 Router::get('dashboard', 'DefaultController');

@@ -22,7 +22,7 @@ if (!isset($_SESSION['user'])) {
     <div class="workouts-container">
         <div class="workouts-list">
             <?php foreach($userWorkouts as $wkt): ?>
-                <div id="workout-item" class="workout-crest">
+                <div id="workout-item" class="workout-crest content-flex-col">
                     <h3><?=$wkt->getName();?></h3>
                     <div class="workout-inside-box">
                         <h3><?=$wkt->getDifficulty();?></h3>

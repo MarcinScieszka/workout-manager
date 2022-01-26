@@ -51,4 +51,17 @@ class WorkoutController extends AppController {
         $userWorkouts = $this->workoutRepository->getWorkouts($_SESSION['user_id']);
         return $this->render('myWorkouts', ['userWorkouts' => $userWorkouts]);
     }
+
+    public function workout() {
+        if(!isset($_GET['id'])) {
+            return $this->render('homepage');
+        }
+        //TODO: restrict viewing of workouts created by other users
+        $workout = $this->workoutRepository->getWorkoutDetails($_GET['id']);
+        if(!$workout) {
+            header("Location: http://$_SERVER[HTTP_HOST]/");
+            exit();
+        }
+        $this->render('workout', ['workout' => $workout]);
+    }
 }

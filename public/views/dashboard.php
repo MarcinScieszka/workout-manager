@@ -20,24 +20,24 @@
         include('init.php');
     ?>
     <div class="dashboard-container">
-        <section class="dashboard-section-1" >
+        <section class="dashboard-section-1 content-flex-col" >
             <h2>Let's get to work!</h2>
 
             <a class="btn-navigate" href="/myWorkouts">My workouts</a>
 
             <div class="dashboard-grid">
-                <div class="dashboard-item">
+                <div class="dashboard-item content-flex-col">
                     <img src="public/img/workout-plan-homepage.png" alt="Workout plan">
                     <a class="workouts-btn" href="/workouts">Choose a workout plan</a>
                 </div>
-                <div class="dashboard-item">
+                <div class="dashboard-item content-flex-col">
                     <img src="public/img/single-workout-homepage.png" alt="Workout plan">
                     <a class="workouts-btn" href="/workouts">Choose a single workout</a>
                 </div>
-                <div class="dashboard-item">
+                <div class="dashboard-item content-flex-col">
                     <a class="add-btn" href="/addPlan">Create a workout plan</a>
                 </div>
-                <div class="dashboard-item">
+                <div class="dashboard-item content-flex-col">
                     <a class="add-btn" href="/addWorkout">Create a single workout</a>
                 </div>
             </div>

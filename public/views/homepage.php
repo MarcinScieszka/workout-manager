@@ -19,7 +19,7 @@
         include('init.php');
     ?>
     <section>
-        <div class="hero">
+        <div class="hero content-flex-col">
             <h1 class="item">Workager, your workout manager</h1>
             <h2 class="item">The best solution to support you <br>
                 during your training sessions</h2>

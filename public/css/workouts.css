@@ -1,3 +1,9 @@
+.workout-crest { background-color: gray; }
+.workout-crest-easy { background-color: var(--difficulty-easy); }
+.workout-crest-medium { background-color: var(--difficulty-medium); }
+.workout-crest-hard { background-color: var(--difficulty-hard); }
+.workout-crest-very-hard { background-color: var(--difficulty-very-hard); }
+
 .workouts-container {
     width: 100%;
     display: flex;
@@ -13,20 +19,10 @@
     gap: 1rem;
 }
 
-.workouts-list h3 {
-    padding: 0;
-    margin: 0.4rem 0 0;
-}
-
 #workout-item {
     max-width: 300px;
-    height: 290px;
-    margin-bottom: 1rem;
-    border-radius: 1rem 1rem 3rem 3rem;
+    height: 300px;
     border: 2px solid white;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
 }
 
 #workout-item * {
@@ -36,35 +32,27 @@
     font-size: 1.2rem;
 }
 
-#workout-item :first-child {
-    margin: 0.5rem;
+#workout-item h3 {
+    padding: 0.3rem;
+}
+
+.item-name, .item-difficulty, .item-exercises, .item-type, .item-details {
+    width: 100%;
+    height: max-content;
+    background-color: hsla(0, 0%, 15%, 0.493);
+    border: 1px solid #ffffff;
+}
+
+.item-exercises {
+    flex-grow: 1;
 }
 
 .workout-details-btn {
-    width: 120px;
-    padding: 0.5rem;
-    border: 2px solid white;
-    margin-top:0.5rem;
+    width: 100%;
+    height: 40px;
+    color: white;
 }
 
-.workout-crest { background-color: gray; }
-.workout-crest-easy { background-color: var(--difficulty-easy); }
-.workout-crest-medium { background-color: var(--difficulty-medium); }
-.workout-crest-hard { background-color: var(--difficulty-hard); }
-.workout-crest-very-hard { background-color: var(--difficulty-very-hard); }
-
-.workout-inside-box {
-    background-color: hsla(0, 0%, 15%, 0.493);
-    border-radius: 0.5rem;
-    width: 95%;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.workout-difficulty {
-    width: 10rem;
-    margin: 0.5rem;
+.workout-details-btn:hover {
+    background-color: #3c3c3c;
 }

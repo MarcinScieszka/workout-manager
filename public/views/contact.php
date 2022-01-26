@@ -17,7 +17,7 @@
         <div class="box">
             <div class="image-box">
             <?php if($message_sent): ?>
-                <div class="thank-you-msg">
+                <div class="thank-you-msg content-flex-col">
                     <h2>Thank you for the message!</h2>
                     <div class="go-back-btn">
                         <a  href="/">Go back</a>

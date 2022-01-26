@@ -51,7 +51,7 @@ class WorkoutRepository extends Repository
         }
 
         $sql = '
-            SELECT w.workout_name, wd.difficulty, wt.type FROM public.workout w
+            SELECT w.id, w.workout_name, wd.difficulty, wt.type FROM public.workout w
             JOIN workout_type wt ON w.id_workout_type = wt.id
             JOIN workout_difficulty wd ON w.id_workout_difficulty = wd.id
             WHERE w.creator_user_id = ?;
@@ -61,6 +61,7 @@ class WorkoutRepository extends Repository
         $stmt->execute([$creator_user_id]);
         while($workout = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $result[] = new Workout(
+                $workout['id'],
                 $workout['workout_name'],
                 $workout['difficulty'],
                 $workout['type'],
@@ -68,6 +69,25 @@ class WorkoutRepository extends Repository
             );
         }
         return $result;
+    }
+
+    public function getWorkoutDetails(int $id): ?Workout {
+        $db = $this->database->connect();
+
+        $stmt =  $db->prepare('
+            SELECT id, workout_name FROM workout w
+            WHERE w.id = ?
+        ');
+        $stmt->execute([$id]);
+        $workout = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$workout) {
+            return null;
+        }
+
+        return new Workout(
+            $workout['id'],
+            $workout['workout_name'], "y", "z", ['a', 'b', 'c']
+        );
     }
 
     public function addWorkout(Workout $workout): void {

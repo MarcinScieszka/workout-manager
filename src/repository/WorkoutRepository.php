@@ -97,13 +97,6 @@ class WorkoutRepository extends Repository
         try {
             $db->beginTransaction();
 
-            // TODO: create prepared statement/ function/ procedure ??? getUserByEmail(string $email)
-//            $sql = 'SELECT id FROM public."user" WHERE email = ?;';
-//            $stmt = $db->prepare($sql);
-//            $stmt->execute($_SESSION['user']);
-//            $selected_user = $stmt->fetch(PDO::FETCH_ASSOC);
-//            $id_user = $selected_user['id'];
-
             $sql = 'SELECT id FROM workout_type WHERE type = ?;';
             $stmt = $db->prepare($sql);
             $wkt_type = $workout->getType();

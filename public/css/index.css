@@ -308,7 +308,18 @@ header {
     display: block;
 }
 
+.mobile-header-btn {
+    display: none;
+    font-size: 1.6rem;
+    font-weight: bolder;
+    background-color: transparent;
+    color: white;
+    padding: 0.2rem 0;
+    width: 50px;
+}
+
 @media screen and (max-width: 780px) {
+
     .header-item-btn > a {
         font-size: 1.3rem;
     }
@@ -321,6 +332,14 @@ header {
 @media screen and (max-width: 650px) {
     header {
         display: grid;
+    }
+
+    .header-item-btn {
+        display: none;
+    }
+
+    .mobile-header-btn {
+        display: block;
     }
 
     .header-item-btn > a {

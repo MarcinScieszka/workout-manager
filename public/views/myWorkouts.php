@@ -21,20 +21,28 @@ if (!isset($_SESSION['user'])) {
 <section class="container">
     <div class="workouts-container">
         <div class="workouts-list">
-            <?php foreach($userWorkouts as $wkt): ?>
+            <?php foreach ($userWorkouts as $wkt): ?>
                 <div id="workout-item" class="workout-crest content-flex-col">
-                    <h3><?=$wkt->getName();?></h3>
-                    <div class="workout-inside-box">
-                        <h3><?=$wkt->getDifficulty();?></h3>
-                        <?
-                        $exercises = $wkt->getAllExercises();
-                        foreach($exercises as $exercise) {
-                            echo "<pre>"; print_r($exercise); echo "</pre>";
-                        }
-                        ?>
+                    <div class="item-name content-flex-col">
+                        <h3><?=$wkt->getName();?></h3>
                     </div>
-                    <h3><?=$wkt->getType();?></h3>
-                    <a class="workout-details-btn workout-crest" href="/workoutDetails">See details</a>
+                    <div class="item-difficulty content-flex-col">
+                        <h3><?=$wkt->getDifficulty();?></h3>
+                    </div>
+                    <div class="item-exercises content-flex-col">
+                        <?php $exercises = $wkt->getAllExercises();
+                        foreach ($exercises as $exercise) {
+                            echo "<pre>"; print_r($exercise); echo "</pre>";
+                        } ?>
+                    </div>
+                    <div class="item-type content-flex-col">
+                        <h3><?=$wkt->getType();?></h3>
+                    </div>
+                    <div class="item-details content-flex-col">
+                        <button class="workout-details-btn workout-crest">
+                            <a href="/workout?id=<?=$wkt->getId();?>">See details</a>
+                        </button>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>

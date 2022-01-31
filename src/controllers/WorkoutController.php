@@ -38,7 +38,7 @@ class WorkoutController extends AppController {
         }
 
         if($this->workoutRepository->checkIfWorkoutNameExists($_POST['workout-name'])){
-            // TODO: (?) only check if name exists in user's workouts
+            // TODO: (?) only check if name already exists in user's workouts
             // TODO: (?) add .invalid-input style to workout-name form
 
             return $this->render('addWorkout', [
@@ -47,7 +47,6 @@ class WorkoutController extends AppController {
         }
 
         session_start();
-        echo "<pre>"; print_r($_POST); echo "</pre>";
 
         $workoutName = preg_replace('/[^a-zA-Z0-9_ -]/s',' ', $_POST['workout-name']);
         if($workoutName == '') {
@@ -55,7 +54,15 @@ class WorkoutController extends AppController {
                 'messages' => ['Workout name should only contain letters and numbers'], 'exercises' => $this->workoutRepository->getExercises()
             ]);
         }
-        $workout = new Workout($_SESSION['user_id'], $workoutName, $_POST['workout-difficulty'], $_POST['workout-type'], $_POST['exercises']);
+
+        $exercises = [];
+        foreach ($_POST['exercises'] as $key=>$val) {
+            if (array_key_exists('name', $val)) {
+                $exercises[] = $val;
+            }
+        }
+
+        $workout = new Workout($_SESSION['user_id'], $workoutName, $_POST['workout-difficulty'], $_POST['workout-type'], $exercises);
         $this->workoutRepository->addWorkout($workout);
 
         $userWorkouts = $this->workoutRepository->getWorkouts($_SESSION['user_id']);

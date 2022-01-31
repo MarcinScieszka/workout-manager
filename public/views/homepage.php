@@ -28,7 +28,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="s2">
         <div class="section-2">
             <div class="content-item-1">
                 <h1>Dozens of workouts <br> at your fingertips</h1>
@@ -45,7 +45,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="s3">
         <div class="section-3">
             <div class="section-3-element grid-col-span-3">
                 <h1>Training plan based on your needs</h1>
@@ -65,7 +65,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="s4">
         <div class="section-4">
             <div class="section-4-element">
                 <img src="public/img/homepage-difficulty.jpg" alt="">
@@ -80,7 +80,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="s5">
         <div class="section-5">
             <div class="section-5-element">
                 <h1>Facilitated strength progression</h1>

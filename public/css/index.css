@@ -309,6 +309,9 @@ header {
 }
 
 .mobile-header-btn {
+    position: absolute;
+    left:1rem;
+    top:1rem;
     display: none;
     font-size: 1.6rem;
     font-weight: bolder;

@@ -30,7 +30,7 @@ section > * {
 
 /* --------------------------------- */
 
-section:nth-child(3) {
+section.s2 {
     width: 100%;
     background: linear-gradient(21.47deg, #4E0000 -27.48%, #001856 78.1%);
     display: flex;
@@ -93,7 +93,7 @@ section:nth-child(3) {
 
 /* --------------------------------- */
 
-section:nth-child(4) {
+section.s3 {
     width: 100%;
     background: linear-gradient(320.23deg, #00247E -101.19%, #000000 77.29%, #000000 77.29%);
     display: flex;
@@ -122,7 +122,7 @@ section:nth-child(4) {
 
 /* --------------------------------- */
 
-section:nth-child(5) {
+section.s4 {
     width: 100%;
     background: linear-gradient(154.2deg, #000000 16.3%, #000000 16.3%, rgba(107, 0, 0, 0.98) 192.61%);
     display: flex;
@@ -161,7 +161,7 @@ section:nth-child(5) {
 
 /* --------------------------------- */
 
-section:nth-child(6) {
+section.s5 {
     width: 100%;
     background: linear-gradient(135deg, #00247E -75%, #070707 25%);
     display: flex;

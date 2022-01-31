@@ -26,10 +26,7 @@ class WorkoutRepository extends Repository
         //TODO: finish
         return null;
 //        return new Workout(
-//            $workout->workout_name,
-//            $workout['difficulty'],
-//            $workout['type']
-//            ..
+
 //        );
     }
 
@@ -72,28 +69,54 @@ class WorkoutRepository extends Repository
     }
 
     public function getWorkoutDetails(int $id): ?Workout {
+        $exercises = [];
         $db = $this->database->connect();
 
-        $stmt =  $db->prepare('
-            SELECT id, workout_name FROM workout w
-            WHERE w.id = ?
-        ');
+        $sql = '
+            SELECT w.id, w.workout_name, wd.difficulty, wt.type FROM public.workout w
+            JOIN workout_type wt ON w.id_workout_type = wt.id
+            JOIN workout_difficulty wd ON w.id_workout_difficulty = wd.id
+            WHERE w.id = ?;
+        ';
+        $stmt = $db->prepare($sql);
         $stmt->execute([$id]);
         $workout = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$workout) {
             return null;
         }
 
+        $sql = 'SELECT we.id_exercise, e.exercise_name FROM workout_exercise we
+                JOIN exercise e ON we.id_exercise = e.id
+                WHERE we.id_workout = ?;';
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id]);
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $exercises[$row['exercise_name']]['name'] = $row['exercise_name'];
+        }
+
+        $sql = 'SELECT e.exercise_name, wed.sets, wed.reps, wed.details FROM workout_exercise_details wed
+                JOIN workout w ON id_workout = ?
+                JOIN exercise e ON wed.id_exercise = e.id;';
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id]);
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $exercises[$row['exercise_name']]['reps'] = $row['reps'];
+            $exercises[$row['exercise_name']]['sets'] = $row['sets'];
+            $exercises[$row['exercise_name']]['description'] = $row['details'];
+        }
         return new Workout(
             $workout['id'],
-            $workout['workout_name'], "y", "z", ['a', 'b', 'c']
+            $workout['workout_name'],
+            $workout['difficulty'],
+            $workout['type'],
+            $exercises
         );
     }
 
     public function addWorkout(Workout $workout): void {
         $db = $this->database->connect();
         session_start();
-
         try {
             $db->beginTransaction();
 
@@ -124,13 +147,17 @@ class WorkoutRepository extends Repository
             foreach ($workout->getAllExercises() as $exercise) {
                 $sql = 'SELECT id FROM exercise WHERE exercise_name = ?';
                 $stmt = $db->prepare($sql);
-                $stmt->execute([$exercise]);
+                $stmt->execute([$exercise['name']]);
                 $selected_exercise = $stmt->fetch(PDO::FETCH_ASSOC);
                 $id_exercise = $selected_exercise['id'];
 
                 $sql = 'INSERT INTO workout_exercise (id_workout, id_exercise) VALUES (?, ?);';
                 $stmt = $db->prepare($sql);
                 $stmt->execute([$id_workout, $id_exercise]);
+
+                $sql = 'INSERT INTO workout_exercise_details (id_exercise, sets, reps, id_workout, details) VALUES (?, ?, ?, ?, ?);';
+                $stmt = $db->prepare($sql);
+                $stmt->execute([$id_exercise, $exercise['sets'], $exercise['reps'], $id_workout, $exercise['details']]);
             }
 
             $db->commit();

@@ -6,7 +6,7 @@ class Workout
     private string $name;
     private string $difficulty;
     private string $type;
-    private array $exercises = [];
+    private array $exercises;
 
     public function __construct(int $id, string $name, string $difficulty, string $type, array $exercises) {
         $this->id = $id;
@@ -21,7 +21,7 @@ class Workout
         return $this->id;
     }
 
-        public function getName() : string
+    public function getName() : string
     {
         return $this->name;
     }

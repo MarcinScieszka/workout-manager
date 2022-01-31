@@ -55,11 +55,16 @@
                         </div>
                         <div class="exercise-type-content exercise-type-<?= $key; ?>" style="display: none">
                             <?php foreach ($exerciseType as $key2=>$exercise): ?>
-                                <input name="exercises[]" type="checkbox" id="<?= $exercise; ?>" value="<?= $exercise; ?>" onclick='showElement("<?= str_replace(' ', '_', $exercise); ?>")'>
+                                <input name="exercises[<?= $exercise; ?>][name]" type="checkbox" value="<?= $exercise; ?>" id="<?= $exercise; ?>" onclick='showElement("<?= str_replace(' ', '_', $exercise); ?>")'>
                                 <label for="<?= $exercise; ?>" ><?= $exercise; ?></label>
                                 <div class="<?= str_replace(' ', '_', $exercise); ?>" style="display: none">
                                     <h3>Exercise details</h3>
-                                    <textarea name="<?= $exercise; ?>-details" id="<?= $exercise; ?>-details" cols="13" rows="2"></textarea>
+                                    <textarea name="exercises[<?= $exercise; ?>][details]" id="<?= $exercise; ?>-details" cols="13" rows="2"></textarea>
+                                    <label for="<?= $exercise; ?>-sets">Sets </label>
+                                    <input type="number" id="<?= $exercise; ?>-sets" name="exercises[<?= $exercise; ?>][sets]" min="1" max="15">
+                                    <label for="<?= $exercise; ?>-reps">Reps </label>
+                                    <input type="number" id="<?= $exercise; ?>-reps" name="exercises[<?= $exercise; ?>][reps]" min="1" max="50">
+<!--                                    TODO: inputs and textarea required only if checkbox checked -->
                                 </div>
                                 <br>
                             <?php endforeach; ?>

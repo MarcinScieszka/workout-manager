@@ -20,7 +20,7 @@
         <div class="workouts-container">
             <div class="workouts-list">
                 <?php foreach ($workouts as $wkt): ?>
-                    <div id="workout-item" class="workout-crest content-flex-col">
+                    <div class="workout-item workout-crest content-flex-col">
                         <div class="item-name content-flex-col">
                             <h3><?=$wkt->getName();?></h3>
                         </div>

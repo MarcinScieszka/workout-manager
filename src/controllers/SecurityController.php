@@ -121,4 +121,45 @@ class SecurityController extends AppController
         header("Location: {$url}/login");
         exit();
     }
+
+    public function changePassword() {
+        if (!$this->isPost()) {
+            return $this->render('changePassword');
+        }
+        session_start();
+
+        $userRepository = new UserRepository();
+        $password = htmlspecialchars($_POST["password"]);
+        $newPassword = htmlspecialchars($_POST["newPassword"]);
+        $confirmPassword = htmlspecialchars($_POST["confirmPassword"]);
+
+        $user = $userRepository->getUser($_SESSION['user']);
+        if (!password_verify($password, $user->getPassword())) {
+            return $this->render('changePassword', ['messages' => ['Wrong password!'],
+                'provided_new_password' => $newPassword,
+                'provided_confirm_password' => $confirmPassword
+            ]);
+        }
+
+        $password_pattern = ' ((?=.*[A-Z])(?=.*[a-z])(?=.*\d).{7,200}) ';
+        if(!preg_match($password_pattern, $password)) {
+            return $this->render('register', ['messages' => ['Make sure your password is 8 characters long 
+            and contains at least one: number, special character, lowercase letter and uppercase letter'],
+                'provided_new_password' => $newPassword
+            ]);
+        }
+
+        if ($newPassword != $confirmPassword) {
+            return $this->render('changePassword', ['messages' => ['Passwords do not match!'],
+                'provided_password' => $password,
+                'provided_new_password' => $newPassword,
+                'provided_confirm_password' => $confirmPassword
+            ]);
+        }
+
+        $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+        $userRepository->changeUserPassword($_SESSION['user'], $newPassword);
+
+        return $this->render('changePassword', ['successful' => true]);
+    }
 }

@@ -72,6 +72,10 @@ a {
     font-size: 1.2rem;
 }
 
+.message-success {
+    color: green; !important;
+}
+
 .grid-col-span-3 {
     grid-column: span 3;
 }

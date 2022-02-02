@@ -17,5 +17,6 @@ Router::post('contact', 'CommunicationController');
 Router::get('', 'DefaultController');
 Router::get('dashboard', 'DefaultController');
 Router::get('settings', 'DefaultController');
+Router::post('changePassword', 'SecurityController');
 Router::get('test', 'DefaultController');
 Router::run($path);

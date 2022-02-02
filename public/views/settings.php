@@ -20,17 +20,16 @@
     <section class="container">
         <div class="personal-info">
             <h2>Personal info</h2>
-                
             <h3>Email</h3>
             <h4> <?= $_SESSION['user']; ?> </h4>
-        
-            <h3>Name</h3>
-            
-            <h3>Gender</h3>
-            
+            <?php
+                if(isset($keepdialog)) {
+                    echo $keepdialog;
+                }
+            ?>
             <h3>Password</h3>
-            <!-- TODO: password: last changed time -->
-        </div>   
+            <a class="change-password-btn" href="/changePassword">Change password</a>
+        </div>
     </section>
     <?php
         include('elements/footer-logged-in.php');

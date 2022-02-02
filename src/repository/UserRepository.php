@@ -8,7 +8,7 @@ class UserRepository extends Repository {
     public function getUser(string $email): ?User {
         $sql = 'SELECT * FROM public.user WHERE email = :email;';
         $stmt = $this->database->connect()->prepare($sql);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -72,5 +72,25 @@ class UserRepository extends Repository {
         }
 
         return $result;
+    }
+
+    public function changeUserPassword(string $email, string $password): void {
+        $db = $this->database->connect();
+
+        try {
+            $db->beginTransaction();
+
+            $sql = 'UPDATE public.user u SET password = :password
+                WHERE u.email = :email;';
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $password);
+            $stmt->execute();
+            $db->commit();
+        }
+        catch (PDOException $e) {
+            $db->rollback();
+            throw $e;
+        }
     }
 }

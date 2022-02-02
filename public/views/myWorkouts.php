@@ -8,8 +8,9 @@ if (!isset($_SESSION['user'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="public/css/index.css">
-    <link rel="stylesheet" type="text/css" href="public/css/workouts.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/workouts.css">
+    <script type="text/javascript" src="/public/js/workouts.js" defer></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,7 @@ if (!isset($_SESSION['user'])) {
     <div class="workouts-container">
         <div class="workouts-list">
             <?php foreach ($userWorkouts as $wkt): ?>
-                <div id="workout-item" class="workout-crest content-flex-col">
+                <div class="workout-item workout-crest content-flex-col">
                     <div class="item-name content-flex-col">
                         <h3><?=$wkt->getName();?></h3>
                     </div>

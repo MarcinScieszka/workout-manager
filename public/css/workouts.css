@@ -1,4 +1,4 @@
-.workout-crest { background-color: gray; }
+.workout-crest { background-color: #858585; }
 .workout-crest-easy { background-color: var(--difficulty-easy); }
 .workout-crest-medium { background-color: var(--difficulty-medium); }
 .workout-crest-hard { background-color: var(--difficulty-hard); }

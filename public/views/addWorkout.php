@@ -40,8 +40,6 @@
                     <option value="Powerlifting">Powerlifting</option>
                 </select>
                 <h3>Exercises</h3>
-<!--                TODO: handle no selected checkboxes -->
-<!--                TODO: add search functionality -->
                 <div class="exercise-types-grid">
                     <?php foreach ($exercises as $key=>$exerciseType): ?>
                     <div class="exercise-type-box-content">
@@ -72,7 +70,6 @@
                     </div>
                     <?php endforeach; ?>
                 </div>
-                <!-- TODO: button "+" that adds another exercise" -->
                 <div class="add-workout-btn">
                     <input type="submit" value="Add workout">
                 </div>

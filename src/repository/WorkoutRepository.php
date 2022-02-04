@@ -84,7 +84,7 @@ class WorkoutRepository extends Repository
 
     public function addWorkout(Workout $workout): void {
         $db = $this->database->connect();
-        session_start();
+//        session_start();
         try {
             $db->beginTransaction();
 
@@ -138,7 +138,7 @@ class WorkoutRepository extends Repository
 
     public function assignWorkout(int $workout_id, int $user_id, string $workout_date): void {
         $db = $this->database->connect();
-        session_start();
+//        session_start();
         try {
             $db->beginTransaction();
 
@@ -156,7 +156,7 @@ class WorkoutRepository extends Repository
 
     public function getWorkoutDate(int $id_workout, int $id_user): string {
         $db = $this->database->connect();
-        session_start();
+//        session_start();
         try {
             $db->beginTransaction();
 
@@ -209,5 +209,24 @@ class WorkoutRepository extends Repository
         }
 
         return $result;
+    }
+
+    public function changeWorkoutStatus($id_workout, $id_user, int $oldStatus, int $newStatus) {
+        $db = $this->database->connect();
+
+        try {
+            $db->beginTransaction();
+
+            $sql = 'UPDATE workout_assignment wa SET id_status = ?
+                    WHERE wa.id_user = ? AND wa.id_workout = ? AND id_status = ?;';
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$newStatus, $id_user, $id_workout, $oldStatus]);
+
+            $db->commit();
+        }
+        catch (PDOException $e) {
+            $db->rollback();
+            throw $e;
+        }
     }
 }

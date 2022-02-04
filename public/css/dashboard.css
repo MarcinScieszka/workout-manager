@@ -12,7 +12,11 @@
     display: grid;
     gap: 0.5rem 2rem;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 3fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.dashboard-grid {
+    max-width: 630px;
 }
 
 .dashboard-item img {
@@ -48,6 +52,10 @@
     color: var(--red);
 }
 
+.active-workout-text {
+    margin-top: 4rem;
+}
+
 @media screen and (max-width: 650px) {
     .dashboard-navigation {
         flex-direction: column;
@@ -61,7 +69,15 @@
 @media screen and (max-width:680px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        height: 1000px;
+        grid-template-rows: 1fr 1fr;
+        height: 800px;
+    }
+
+    .btn-navigate:first-child {
+        margin-top: 2rem;
+    }
+
+    .active-workout-text {
+        margin-top: 2rem;
     }
 }

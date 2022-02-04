@@ -99,4 +99,24 @@ class WorkoutController extends AppController {
         header("Location: {$url}/dashboard");
         exit();
     }
+
+    public function completeWorkout() {
+        if (!$this->isPost()) {
+            return $this->render('/');
+        }
+
+        session_start();
+
+        if (isset($_POST['cancelWorkout'])) {
+            $this->workoutRepository->changeWorkoutStatus($_SESSION['assigned_workout_id'], $_SESSION['user_id'], 1, 3);
+
+        }
+        elseif (isset($_POST['completeWorkout'])) {
+            $this->workoutRepository->changeWorkoutStatus($_SESSION['assigned_workout_id'], $_SESSION['user_id'], 1,2);
+        }
+
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/dashboard");
+        exit();
+    }
 }

@@ -5,37 +5,12 @@ require_once __DIR__."/../models/Workout.php";
 
 class WorkoutRepository extends Repository
 {
-    public function getWorkout(string $workout_name): ?Workout {
-        $db = $this->database->connect();
-
-        $stmt = $db->prepare('
-            SELECT id_exercise
-            FROM public.workout_exercise we
-            JOIN public.workout w ON w.id = we.id_workout AND w.workout_name = :workout_name
-        ');
-
-        $stmt->bindParam(':workout_name', $workout_name);
-        $stmt->execute();
-
-        $workout = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if ($workout == false) {
-            return null;
-        }
-
-        //TODO: finish
-        return null;
-//        return new Workout(
-
-//        );
-    }
-
     public function getWorkouts($creator_user_id): ?array {
         $result = [];
-        $workout_exercises = [];
 
         $db = $this->database->connect();
 
+        $workout_exercises = [];
         $sql = '
             SELECT w.workout_name, e.exercise_name FROM public.workout_exercise we
             JOIN public.workout w ON w.id = we.id_workout
@@ -68,7 +43,7 @@ class WorkoutRepository extends Repository
         return $result;
     }
 
-    public function getWorkoutDetails(int $id): ?Workout {
+    public function getWorkoutDetails(int $id_workout): ?Workout {
         $exercises = [];
         $db = $this->database->connect();
 
@@ -79,32 +54,25 @@ class WorkoutRepository extends Repository
             WHERE w.id = ?;
         ';
         $stmt = $db->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$id_workout]);
         $workout = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$workout) {
             return null;
         }
 
-        $sql = 'SELECT we.id_exercise, e.exercise_name FROM workout_exercise we
-                JOIN exercise e ON we.id_exercise = e.id
-                WHERE we.id_workout = ?;';
+        $sql = 'SELECT e.exercise_name, wed.sets, wed.reps, wed.details 
+                FROM workout_exercise_details wed
+                JOIN exercise e ON wed.id_exercise = e.id
+                WHERE wed.id_workout = ?;';
         $stmt = $db->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$id_workout]);
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $exercises[$row['exercise_name']]['name'] = $row['exercise_name'];
-        }
-
-        $sql = 'SELECT e.exercise_name, wed.sets, wed.reps, wed.details FROM workout_exercise_details wed
-                JOIN workout w ON id_workout = ?
-                JOIN exercise e ON wed.id_exercise = e.id;';
-
-        $stmt = $db->prepare($sql);
-        $stmt->execute([$id]);
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $exercises[$row['exercise_name']]['reps'] = $row['reps'];
             $exercises[$row['exercise_name']]['sets'] = $row['sets'];
             $exercises[$row['exercise_name']]['description'] = $row['details'];
         }
+
         return new Workout(
             $workout['id'],
             $workout['workout_name'],
@@ -166,6 +134,48 @@ class WorkoutRepository extends Repository
             $db->rollback();
             throw $e;
         }
+    }
+
+    public function assignWorkout(int $workout_id, int $user_id, string $workout_date): void {
+        $db = $this->database->connect();
+        session_start();
+        try {
+            $db->beginTransaction();
+
+            $sql = 'INSERT INTO workout_assignment (id_workout, id_user, workout_date) VALUES (?, ?, ?);';
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$workout_id, $user_id, $workout_date]);
+
+            $db->commit();
+        }
+        catch (PDOException $e) {
+            $db->rollback();
+            throw $e;
+        }
+    }
+
+    public function getWorkoutDate(int $id_workout, int $id_user): string {
+        $db = $this->database->connect();
+        session_start();
+        try {
+            $db->beginTransaction();
+
+            $sql = 'SELECT wa.workout_date FROM workout_assignment wa
+                    JOIN "user" u ON wa.id_user = ?
+                    WHERE wa.id_workout = ?;';
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$id_user, $id_workout]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $workout_date = $row['workout_date'];
+
+            $db->commit();
+        }
+        catch (PDOException $e) {
+            $db->rollback();
+            throw $e;
+        }
+
+        return $workout_date;
     }
 
     public function getExercises(): array {

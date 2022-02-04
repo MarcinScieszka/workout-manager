@@ -10,6 +10,7 @@ if (!isset($_SESSION['user'])) {
 <head>
     <link rel="stylesheet" type="text/css" href="/public/css/index.css">
     <link rel="stylesheet" type="text/css" href="/public/css/workouts.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/myWorkouts.css">
     <script type="text/javascript" src="/public/js/workouts.js" defer></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,6 +22,18 @@ if (!isset($_SESSION['user'])) {
 
 <section class="container">
     <div class="workouts-container">
+        <?php if ($userWorkouts == null): ?>
+            <div class="no-workouts content-flex-col">
+                <h1>No workouts to see...</h1>
+                <div class="go-back-btn">
+                    <a href="/">Go back</a>
+                </div>
+                <h2>or</h2>
+                <div class="action-btn">
+                    <a href="/addWorkout">Create workout</a>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="workouts-list">
             <?php foreach ($userWorkouts as $wkt): ?>
                 <div class="workout-item workout-crest content-flex-col">

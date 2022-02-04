@@ -22,12 +22,12 @@
     <section>
         <div class="content">
             <h2>Log in to your account</h2>
-            <form action="login" method="POST">
+            <form class="login-form" action="login" method="POST">
                 <h3>Email</h3>
                 <input name="email" type="email" value="<? if(isset($provided_email)){echo $provided_email;} ?>" required>
                 <h3>Password</h3>
                 <input name="password" type="password" value="<? if(isset($provided_password)){echo $provided_password;} ?>" required>
-                <button class="btn" type="submit">Login</button>
+                <button class="action-btn" type="submit">Login</button>
             </form>
             <div class="messages">
                 <?php

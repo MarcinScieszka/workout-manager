@@ -73,12 +73,30 @@ class WorkoutController extends AppController {
         if(!isset($_GET['id'])) {
             return $this->render('homepage');
         }
-        //TODO: restrict viewing of workouts created by other users
+        //TODO: restrict viewing workouts created by other users
         $workout = $this->workoutRepository->getWorkoutDetails($_GET['id']);
         if(!$workout) {
             header("Location: http://$_SERVER[HTTP_HOST]/");
             exit();
         }
-        $this->render('workout', ['workout' => $workout]);
+        $min_datetime = date("Y-m-d")."T".date("H:i");
+        $max_datetime = date("Y-m-d", strtotime("+14 Days"))."T".date("H:i");
+        $this->render('workout',
+            ['workout' => $workout, 'min_datetime' => $min_datetime, 'max_datetime' => $max_datetime]);
+    }
+
+    public function assignWorkout() {
+        if (!$this->isPost()) {
+            return $this->render('/');
+        }
+
+        session_start();
+
+        $workout_date = preg_replace("/[T]/", " ", $_POST['workout-date']);
+        $this->workoutRepository->assignWorkout($_SESSION['assign_workout_id'], $_SESSION['user_id'], $workout_date);
+
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/dashboard");
+        exit();
     }
 }

@@ -1,8 +1,8 @@
-.workout-crest { background-color: #858585; }
-.workout-crest-easy { background-color: var(--difficulty-easy); }
-.workout-crest-medium { background-color: var(--difficulty-medium); }
-.workout-crest-hard { background-color: var(--difficulty-hard); }
-.workout-crest-very-hard { background-color: var(--difficulty-very-hard); }
+.workout-crest { background-color: transparent }
+.workout-crest-easy { background-color: var(--difficulty-easy) !important; }
+.workout-crest-medium { background-color: var(--difficulty-medium) !important; }
+.workout-crest-hard { background-color: var(--difficulty-hard) !important; }
+.workout-crest-very-hard { background-color: var(--difficulty-very-hard) !important; }
 
 .workouts-container {
     width: 100%;
@@ -21,6 +21,7 @@
     width: 300px;
     height: 300px;
     border: 2px solid white;
+    border-radius: 1rem;
 }
 
 .workout-item * {
@@ -37,8 +38,15 @@
 .item-name, .item-difficulty, .item-exercises, .item-type, .item-details {
     width: 100%;
     height: max-content;
-    background-color: hsla(0, 0%, 15%, 0.493);
     border: 1px solid #ffffff;
+}
+
+.item-name {
+    border-radius: 10px 10px 0 0;
+}
+
+.item-details {
+    border-radius: 0 0 10px 10px;
 }
 
 .item-exercises {
@@ -48,11 +56,17 @@
 .workout-details-btn {
     width: 100%;
     height: 40px;
-    color: white;
+    border-radius: 0 0 10px 10px;
+}
+
+.workout-details-btn a {
+    padding-top: 0.5rem;
+    width: 100%;
+    height: 100%;
 }
 
 .workout-details-btn:hover {
-    background-color: #3c3c3c;
+    background-color: #1f1f1f;
 }
 
 @media screen and (max-width: 1000px) {

@@ -21,12 +21,9 @@
         <div class="personal-info">
             <h2>Personal info</h2>
             <h3>Email</h3>
-            <h4> <?= $_SESSION['user']; ?> </h4>
-            <?php
-                if(isset($keepdialog)) {
-                    echo $keepdialog;
-                }
-            ?>
+            <h4> <?= $user->getEmail(); ?> </h4>
+            <h3>Gender</h3>
+            <h4> <?= $user->getGender(); ?> </h4>
             <h3>Password</h3>
             <a class="change-password-btn" href="/changePassword">Change password</a>
         </div>

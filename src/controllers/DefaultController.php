@@ -11,16 +11,4 @@ class DefaultController extends AppController {
     public function contact() {
         $this->render('contact');
     }
-
-    public function settings() {
-        $this->render('settings');
-    }
-
-    public function test() {
-        $this->render('test');
-    }
-
-    public function dashboard() {
-        $this->render('dashboard');
-    }
 }

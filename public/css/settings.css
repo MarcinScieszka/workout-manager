@@ -25,6 +25,7 @@
     border-radius: 0.5rem;
     font-size: 1rem;
 }
+
 .change-password-btn:hover {
     background-color: var(--red-hover);
 }

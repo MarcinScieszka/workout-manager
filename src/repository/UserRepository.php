@@ -6,7 +6,10 @@ require_once __DIR__."/../models/User.php";
 class UserRepository extends Repository {
 
     public function getUser(string $email): ?User {
-        $sql = 'SELECT * FROM public.user WHERE email = :email;';
+        $sql = 'SELECT * FROM public.user u
+                JOIN user_details ud ON u.id = ud.id_user
+                WHERE email = :email;
+                ';
         $stmt = $this->database->connect()->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -18,11 +21,12 @@ class UserRepository extends Repository {
 
         return new User(
             $user['email'],
-            $user['password']
+            $user['password'],
+            $user['gender']
         );
     }
 
-    public function addUser(string $email, string $password) {
+    public function addUser(string $email, string $password, string $gender) {
         $db = $this->database->connect();
 
         try {
@@ -34,9 +38,9 @@ class UserRepository extends Repository {
             $stmt->execute([$email, $password, $created_at]);
 
             $user_id = $db->lastInsertId();
-            $sql = 'INSERT INTO public.user_details (id_user) VALUES (:user_id);';
+            $sql = 'INSERT INTO public.user_details (id_user, gender) VALUES (:user_id, :gender);';
             $stmt = $db->prepare($sql);
-            $stmt->execute(['user_id' => $user_id]);
+            $stmt->execute(['user_id' => $user_id, 'gender' => $gender]);
 
             $db->commit();
         }
@@ -74,6 +78,37 @@ class UserRepository extends Repository {
         return $result;
     }
 
+    public function checkIfUserHasActiveWorkoutAssignment(int $id_user): ?int {
+        $db = $this->database->connect();
+
+        try {
+            $db->beginTransaction();
+
+            $sql = 'SELECT wa.id_status, wa.id_workout FROM workout_assignment wa
+                    JOIN "user" u ON u.id = ? AND wa.id_user = u.id
+                    WHERE wa.id_status = 1';
+            $stmt = $db->prepare($sql);
+
+            $stmt->execute([$id_user]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $workout_status = $row['id_status'];
+            $id_workout = $row['id_workout'];
+
+            $db->commit();
+        }
+        catch (PDOException $e) {
+            $db->rollback();
+            throw $e;
+        }
+
+        if ($workout_status == 1) {
+            return $id_workout;
+        }
+        else {
+            return null;
+        }
+    }
+
     public function changeUserPassword(string $email, string $password): void {
         $db = $this->database->connect();
 
@@ -81,7 +116,7 @@ class UserRepository extends Repository {
             $db->beginTransaction();
 
             $sql = 'UPDATE public.user u SET password = :password
-                WHERE u.email = :email;';
+                    WHERE u.email = :email;';
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);

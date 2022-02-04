@@ -1,9 +1,6 @@
 .dashboard-container {
     width: 100%;
     min-height: 850px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .dashboard-section-1 {
@@ -12,7 +9,6 @@
 
 .dashboard-grid {
     height: 600px;
-    /* background-color: grey; */
     display: grid;
     gap: 0.5rem 2rem;
     grid-template-columns: 1fr 1fr;
@@ -40,16 +36,26 @@
     background-color: var(--red-hover);
 }
 
-.dashboard-item .add-btn {
+.dashboard-container .add-btn {
     font-weight: bolder;
     background-color: transparent;
     border: 0.2rem solid var(--text-light);;
     padding: 1rem;
 }
 
-.dashboard-item .add-btn:hover {
+.dashboard-container .add-btn:hover {
     background-color: var(--text-light);
     color: var(--red);
+}
+
+@media screen and (max-width: 650px) {
+    .dashboard-navigation {
+        flex-direction: column;
+    }
+
+    .dashboard-navigation * {
+        margin: 0.7rem;
+    }
 }
 
 @media screen and (max-width:680px) {

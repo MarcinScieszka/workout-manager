@@ -58,6 +58,7 @@ class SecurityController extends AppController
 
         $userRepository = new UserRepository();
         $email = $_POST["email"];
+        $gender = $_POST["gender"];
         $password = $_POST["password"];
         $password_conf = $_POST['confirm-password'];
 
@@ -92,7 +93,7 @@ class SecurityController extends AppController
         }
         $password = password_hash($password, PASSWORD_BCRYPT);
 
-        $userRepository->addUser($email , $password);
+        $userRepository->addUser($email , $password, $gender);
 
         return $this->render('login');
     }

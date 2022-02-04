@@ -20,7 +20,7 @@
                 <div class="thank-you-msg content-flex-col">
                     <h2>Thank you for the message!</h2>
                     <div class="go-back-btn">
-                        <a  href="/">Go back</a>
+                        <a href="/">Go back</a>
                     </div>
                 </div>
             <?php else: ?>
@@ -41,7 +41,7 @@
                                 }
                                 ?>
                             </div>
-                            '<br>';
+                            <br>
                             <input class="form-btn" name="submit" type="submit" value="Submit">
                         </div>
                     </div>

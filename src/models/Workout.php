@@ -26,29 +26,14 @@ class Workout
         return $this->name;
     }
 
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
     public function getDifficulty() : string
     {
         return $this->difficulty;
     }
 
-    public function setDifficulty(string $difficulty)
-    {
-        $this->difficulty = $difficulty;
-    }
-
     public function getType() : string
     {
         return $this->type;
-    }
-
-    public function setType(string $type)
-    {
-        $this->type = $type;
     }
 
     public function getAllExercises(): array

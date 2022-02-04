@@ -10,6 +10,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="public/css/index.css">
     <link rel="stylesheet" type="text/css" href="public/css/login.css">
+    <link rel="stylesheet" type="text/css" href="public/css/register.css">
     <script type="text/javascript" src="/public/js/registrationValidation.js" defer></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,15 +23,22 @@
     ?>
     <section>
         <div class="content">
-            <form action="register" method="POST">
+            <form class="login-form" action="register" method="POST">
                 <h2>Sign up</h2>
                 <h3>Email</h3>
                 <input name="email" type="email" value="<? if(isset($provided_email)){echo $provided_email;} ?>" required>
+                <h3>Gender</h3>
+                <div class="radio-gender">
+                    <label for="male">Male</label>
+                    <input type="radio" value="male" name="gender" id="male">
+                    <label for="female">Female</label>
+                    <input type="radio" value="female" name="gender" id="female">
+                </div>
                 <h3>Password</h3>
                 <input name="password" type="password" value="<? if(isset($provided_password)){echo $provided_password;} ?>" required>
                 <h3>Confirm password</h3>
                 <input name="confirm-password" type="password" value="<? if(isset($provided_password_conf)){echo $provided_password_conf;} ?>" required>
-                <button class="btn" type="submit">Register</button>
+                <button class="action-btn" type="submit">Register</button>
                 <div class="messages">
                     <?php
                     if(isset($messages)) {

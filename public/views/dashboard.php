@@ -26,7 +26,7 @@
             <a class="btn-navigate" href="/addWorkout">Create a workout</a>
         </div>
         <?php if($userHasAssignedWorkout): ?>
-            <div class="content-flex-col">
+            <div class="active-workout-container content-flex-col">
                 <h2 class="active-workout-text">Active workout:</h2>
                 <div class="workout-details">
                     <div class="workout-stats">

@@ -53,7 +53,11 @@
 }
 
 .active-workout-text {
-    margin-top: 4rem;
+    margin-top: 2rem;
+}
+
+.active-workout-container {
+    margin-bottom: 2rem;
 }
 
 @media screen and (max-width: 650px) {

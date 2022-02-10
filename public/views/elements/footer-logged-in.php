@@ -13,7 +13,7 @@
             <a href="/contact">Contact</a>
         </div>
         <div class="footer-btn">
-            <a href="/dashboard"><img src="public/img/logo_round.svg" alt="Workager round logo" id="logo-round"></a>
+            <a href="/dashboard"><img src="/public/img/logo_round.svg" alt="Workager round logo" id="logo-round"></a>
         </div>
     </div>
 </footer>

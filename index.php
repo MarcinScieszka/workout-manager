@@ -20,4 +20,5 @@ Router::get('settings', 'UserController');
 Router::post('changePassword', 'SecurityController');
 Router::post('assignWorkout', 'WorkoutController');
 Router::post('completeWorkout', 'WorkoutController');
+Router::post('search', 'WorkoutController');
 Router::run($path);

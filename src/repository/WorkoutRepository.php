@@ -84,7 +84,7 @@ class WorkoutRepository extends Repository
 
     public function addWorkout(Workout $workout): void {
         $db = $this->database->connect();
-//        session_start();
+
         try {
             $db->beginTransaction();
 
@@ -138,7 +138,7 @@ class WorkoutRepository extends Repository
 
     public function assignWorkout(int $workout_id, int $user_id, string $workout_date): void {
         $db = $this->database->connect();
-//        session_start();
+
         try {
             $db->beginTransaction();
 
@@ -156,7 +156,7 @@ class WorkoutRepository extends Repository
 
     public function getWorkoutDate(int $id_workout, int $id_user): string {
         $db = $this->database->connect();
-//        session_start();
+
         try {
             $db->beginTransaction();
 
@@ -176,6 +176,46 @@ class WorkoutRepository extends Repository
         }
 
         return $workout_date;
+    }
+
+    public function getWorkoutsByName(string $searchString): array
+    {
+        $searchString = '%'.strtolower($searchString).'%';
+
+        $db = $this->database->connect();
+        $workout_exercises = [];
+        $result = [];
+        $sql = '
+            SELECT w.workout_name, e.exercise_name FROM public.workout_exercise we
+            JOIN public.workout w ON w.id = we.id_workout
+            JOIN exercise e ON we.id_exercise = e.id
+        ';
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetch(PDO::FETCH_OBJ)){
+            $workout_exercises[$row->workout_name][] = $row->exercise_name;
+        }
+
+        $sql = '
+            SELECT w.id, w.workout_name, wt.type, wd.difficulty
+            FROM public.workout w
+            JOIN workout_type wt ON wt.id = w.id_workout_type
+            JOIN workout_difficulty wd ON wd.id = w.id_workout_difficulty
+            WHERE w.creator_user_id = 1 AND LOWER(w.workout_name) LIKE ?;
+        ';
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$searchString]);
+
+        while($workout = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $result[] = [
+                'id' => $workout['id'],
+                'workout_name' => $workout['workout_name'],
+                'difficulty' => $workout['difficulty'],
+                'type' => $workout['type'],
+                'exercises' => $workout_exercises[$workout['workout_name']]];
+        }
+
+        return $result;
     }
 
     public function getExercises(): array {

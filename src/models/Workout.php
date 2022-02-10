@@ -2,19 +2,13 @@
 
 class Workout
 {
-    private int $id;
-    private string $name;
-    private string $difficulty;
-    private string $type;
-    private array $exercises;
-
-    public function __construct(int $id, string $name, string $difficulty, string $type, array $exercises) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->difficulty = $difficulty;
-        $this->type = $type;
-        $this->exercises = $exercises;
-    }
+    public function __construct(
+        public int $id,
+        public string $name,
+        public string $difficulty,
+        public string $type,
+        public array $exercises
+    ) {}
 
     public function getId() : int
     {

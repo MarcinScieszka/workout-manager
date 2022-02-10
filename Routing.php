@@ -17,17 +17,24 @@ class Router {
         self::$routes[$url] = $view;
     }
 
-    public static function run ($url) {
-        $action = explode("/", $url)[0];
+    public static function run($url) {
+        $urlParts = explode("/", $url);
+        $action = $urlParts[0];
 
         if (!array_key_exists($action, self::$routes)) {
-            die("Wrong url!");
+            header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+            include('notFound.php');
+            die();
         }
         
         $controller = self::$routes[$action];
         $object = new $controller;
         $action = $action ?: 'homepage';
 
-        $object->$action();
+        //TODO: check if id is int
+        //TODO: map whether id can be passed to a certain controller method
+        $id = $urlParts[1] ?? '';
+
+        $object->$action($id);
     }
 }

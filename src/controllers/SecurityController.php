@@ -1,5 +1,7 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 require_once 'AppController.php';
 require_once __DIR__.'/../models/User.php';
 require_once __DIR__.'/../repository/UserRepository.php';
@@ -32,7 +34,7 @@ class SecurityController extends AppController
             ]);
         }
 
-        if (!password_verify($password, $user->getPassword())) {
+        if(!password_verify($password, $user->getPassword())) {
             $securityRepository->login($email, false);
             return $this->render('login', ['messages' => ['Wrong email or password!'],
                 'provided_email' => $email,
@@ -40,19 +42,20 @@ class SecurityController extends AppController
             ]);
         }
 
-        session_start();
+        if(session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $_SESSION['user'] = $email;
         $_SESSION['user_id'] = $userRepository->getUserId($email);
 
         $securityRepository->login($email, true);
 
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/dashboard");
+        header("Location: http://$_SERVER[HTTP_HOST]/dashboard");
         exit();
     }
 
     public function register() {
-        if (!$this->isPost()) {
+        if(!$this->isPost()) {
             return $this->render('register');
         }
 
@@ -100,10 +103,13 @@ class SecurityController extends AppController
 
     public function logout() {
         if (!$this->isPost()) {
-            return;
+            header("Location: http://$_SERVER[HTTP_HOST]/");
+            exit();
         }
 
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $securityRepository = new SecurityRepository();
         $securityRepository->logout($_SESSION['user_id']);
 
@@ -118,17 +124,17 @@ class SecurityController extends AppController
         }
         session_destroy();
 
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/login");
+        header("Location: http://$_SERVER[HTTP_HOST]/login");
         exit();
     }
 
     public function changePassword() {
         if (!$this->isPost()) {
-            return $this->render('changePassword');
+            return $this->render('changePassword', ['successful' => false]);
         }
-        session_start();
-
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $userRepository = new UserRepository();
         $password = htmlspecialchars($_POST["password"]);
         $newPassword = htmlspecialchars($_POST["newPassword"]);
@@ -136,7 +142,7 @@ class SecurityController extends AppController
 
         $user = $userRepository->getUser($_SESSION['user']);
         if (!password_verify($password, $user->getPassword())) {
-            return $this->render('changePassword', ['messages' => ['Wrong password!'],
+            return $this->render('changePassword', ['successful' => false, 'messages' => ['Wrong password!'],
                 'provided_new_password' => $newPassword,
                 'provided_confirm_password' => $confirmPassword
             ]);
@@ -151,7 +157,7 @@ class SecurityController extends AppController
         }
 
         if ($newPassword != $confirmPassword) {
-            return $this->render('changePassword', ['messages' => ['Passwords do not match!'],
+            return $this->render('changePassword', ['successful' => false, 'messages' => ['Passwords do not match!'],
                 'provided_password' => $password,
                 'provided_new_password' => $newPassword,
                 'provided_confirm_password' => $confirmPassword

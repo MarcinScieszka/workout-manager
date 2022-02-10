@@ -1,15 +1,11 @@
 <?php
 
 class User {
-    private string $email;
-    private string $password;
-    private string $gender;
-
-    public function __construct(string $email, string $password, string $gender) {
-        $this->email = $email;
-        $this->password = $password;
-        $this->gender = $gender;
-    }
+    public function __construct(
+        public string $email,
+        public string $password,
+        public string $gender
+    ) {}
 
     public function getGender(): string
     {

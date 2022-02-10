@@ -1,3 +1,6 @@
+/*TODO download font and replace import  */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
 /*  ---------------------------
 Global
 ---------------------------  */
@@ -8,7 +11,7 @@ Global
     --text-dark: #0a0a0a;
     --header: #000000;
     --header-hover: #e2e2e2;
-    --red: #B60000;
+    --red: rgb(182, 0, 0);
     --red-hover: #990101;
     --text-light-hover: #e2e2e2;
     --difficulty-easy: #277B00;
@@ -16,8 +19,6 @@ Global
     --difficulty-hard: #B60000;
     --difficulty-very-hard: #000000;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -201,9 +202,6 @@ button.btn:hover {
 
 section.container {
     min-height: 850px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .content-flex-col {
@@ -304,6 +302,10 @@ header {
     transform: translate(30px, -10px);
 }
 
+.profile-icon img {
+    width: 100%;
+}
+
 .profile-icon:hover {
     cursor: pointer;
     box-shadow: 0 0 1.5rem red;
@@ -324,15 +326,21 @@ header {
 }
 
 #profile-overlay li {
-    border-radius: 1rem;
     padding: 0;
-    margin: 0.5rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
     font-size: 1.5rem;
     color: var(--text-light);
+}
+
+#profile-overlay li:first-child {
+    border-radius: 1rem 1rem 0 0;
+}
+
+#profile-overlay li:last-child {
+    border-radius: 0 0 1rem 1rem;
 }
 
 #profile-overlay form {
@@ -382,13 +390,17 @@ header {
 }
 
 @media screen and (max-width: 780px) {
-
     .header-item-btn > a {
         font-size: 1.3rem;
     }
 
     .header-item {
         width: 110px;
+    }
+
+    .profile-icon {
+        width: 45px;
+        height: 45px;
     }
 }
 
@@ -476,7 +488,6 @@ footer {
 
 .copyright {
     height: 1.5rem;
-    /* background-color: black; */
     font-size: 12px;
     display: flex;
     justify-content: center;

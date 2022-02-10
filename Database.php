@@ -4,17 +4,12 @@ require_once 'config.php';
 
 class Database
 {
-    private $username;
-    private $password;
-    private $host;
-    private $database;
-
-    public function __construct() {
-        $this->username = USERNAME;
-        $this->password = PASSWORD;
-        $this->host = HOST;
-        $this->database = DATABASE;
-    }
+    public function __construct(
+        private string $username = USERNAME,
+        private string $password = PASSWORD,
+        private string $host = HOST,
+        private string $database = DATABASE
+    ) {}
 
     public function connect() {
         try {

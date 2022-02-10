@@ -5,23 +5,24 @@ require_once __DIR__.'/../models/Workout.php';
 require_once __DIR__.'/../repository/WorkoutRepository.php';
 
 class WorkoutController extends AppController {
-    private $messages = [];
-    private $workoutRepository;
-
-    public function __construct() {
+    public function __construct(
+        private $workoutRepository = new WorkoutRepository(),
+        private $messages = []
+    ) {
         parent::__construct();
-        $this->workoutRepository = new WorkoutRepository();
     }
 
     public function workouts() {
         $workouts = $this->workoutRepository->getWorkouts(1);
-        $this->render('workouts', ['workouts' => $workouts]);
+        return $this->render('workouts', ['workouts' => $workouts]);
     }
 
     public function myWorkouts() {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $userWorkouts = $this->workoutRepository->getWorkouts($_SESSION['user_id']);
-        $this->render('myWorkouts', ['userWorkouts' => $userWorkouts]);
+        return $this->render('myWorkouts', ['userWorkouts' => $userWorkouts]);
     }
 
     public function addWorkout() {
@@ -46,7 +47,9 @@ class WorkoutController extends AppController {
             ]);
         }
 
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         $workoutName = preg_replace('/[^a-zA-Z0-9_ -]/s',' ', $_POST['workout-name']);
         if($workoutName == '') {
@@ -69,19 +72,20 @@ class WorkoutController extends AppController {
         return $this->render('myWorkouts', ['userWorkouts' => $userWorkouts]);
     }
 
-    public function workout() {
-        if(!isset($_GET['id'])) {
-            return $this->render('homepage');
+    public function workout($id) {
+        if(!is_numeric($id)) {
+            header("Location: http://$_SERVER[HTTP_HOST]/");
+            exit();
         }
         //TODO: restrict viewing workouts created by other users
-        $workout = $this->workoutRepository->getWorkoutDetails($_GET['id']);
+        $workout = $this->workoutRepository->getWorkoutDetails($id);
         if(!$workout) {
             header("Location: http://$_SERVER[HTTP_HOST]/");
             exit();
         }
         $min_datetime = date("Y-m-d")."T".date("H:i");
         $max_datetime = date("Y-m-d", strtotime("+14 Days"))."T".date("H:i");
-        $this->render('workout',
+        return $this->render('workout',
             ['workout' => $workout, 'min_datetime' => $min_datetime, 'max_datetime' => $max_datetime]);
     }
 
@@ -90,13 +94,14 @@ class WorkoutController extends AppController {
             return $this->render('/');
         }
 
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         $workout_date = preg_replace("/[T]/", " ", $_POST['workout-date']);
         $this->workoutRepository->assignWorkout($_SESSION['assign_workout_id'], $_SESSION['user_id'], $workout_date);
 
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/dashboard");
+        header("Location: http://$_SERVER[HTTP_HOST]/dashboard");
         exit();
     }
 
@@ -105,18 +110,33 @@ class WorkoutController extends AppController {
             return $this->render('/');
         }
 
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if (isset($_POST['cancelWorkout'])) {
             $this->workoutRepository->changeWorkoutStatus($_SESSION['assigned_workout_id'], $_SESSION['user_id'], 1, 3);
-
         }
         elseif (isset($_POST['completeWorkout'])) {
             $this->workoutRepository->changeWorkoutStatus($_SESSION['assigned_workout_id'], $_SESSION['user_id'], 1,2);
         }
 
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/dashboard");
+        header("Location: http://$_SERVER[HTTP_HOST]/dashboard");
         exit();
+    }
+
+    public function search()
+    {
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+        if ($contentType === "application/json") {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+
+            header('Content-type: application/json');
+            http_response_code(200);
+
+            echo json_encode($this->workoutRepository->getWorkoutsByName($decoded['search']));
+        }
     }
 }

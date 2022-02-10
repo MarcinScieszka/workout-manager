@@ -54,9 +54,9 @@ button.dropdown-button:hover {
     color: #0f0f0f;
 }
 
-label {
-    padding-right: 2rem;
-}
+/*label {*/
+/*    padding-right: 2rem;*/
+/*}*/
 
 input[type="checkbox"] {
     margin: 1rem 0;

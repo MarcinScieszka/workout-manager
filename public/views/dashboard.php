@@ -1,20 +1,21 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['user'])) {
-        header("Location: http://$_SERVER[HTTP_HOST]/login");
-        exit();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
     }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="public/css/index.css">
-    <link rel="stylesheet" type="text/css" href="public/css/dashboard.css">
-    <link rel="stylesheet" type="text/css" href="public/css/workout.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/public/img/favicon.ico">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/dashboard.css">
+    <link rel="stylesheet" href="/public/css/workout.css">
+    <script type="text/javascript" src="/public/js/index.js" defer></script>
+    <script type="text/javascript" src="/public/js/header.js" defer></script>
 </head>
 <body>
     <?php
@@ -57,11 +58,11 @@
             <h2>Let's get to work!</h2>
             <div class="dashboard-grid">
                 <div class="dashboard-item content-flex-col">
-                    <img src="public/img/workout-plan-homepage.png" alt="Workout plan">
+                    <img src="/public/img/workout-plan-homepage.png" alt="Workout plan">
                     <a class="workouts-btn" href="/workouts">Choose a workout plan</a>
                 </div>
                 <div class="dashboard-item content-flex-col">
-                    <img src="public/img/single-workout-homepage.png" alt="Workout plan">
+                    <img src="/public/img/single-workout-homepage.png" alt="Workout plan">
                     <a class="workouts-btn" href="/workouts">Choose a single workout</a>
                 </div>
             </div>

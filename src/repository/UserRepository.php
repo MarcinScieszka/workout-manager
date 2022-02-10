@@ -79,6 +79,7 @@ class UserRepository extends Repository {
     }
 
     public function checkIfUserHasActiveWorkoutAssignment(int $id_user): ?int {
+        $workout_status = null;
         $db = $this->database->connect();
 
         try {
@@ -91,8 +92,10 @@ class UserRepository extends Repository {
 
             $stmt->execute([$id_user]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $workout_status = $row['id_status'];
-            $id_workout = $row['id_workout'];
+            if($row) {
+                $workout_status = $row['id_status'];
+                $id_workout = $row['id_workout'];
+            }
 
             $db->commit();
         }

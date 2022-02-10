@@ -1,12 +1,14 @@
+section.container {
+    margin-top: 100px;
+    justify-content: flex-start;
+}
+
 .personal-info {
-    background-color: rgb(19, 19, 19);
     padding: 1rem 2rem;
     border-radius: 1rem;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
+    width: 300px;
     align-items: flex-start;
-    box-shadow: 0.4rem 0.4rem 1rem rgb(0, 0, 0);
+    box-shadow: 0 0 2rem 1rem rgb(0, 0, 0);
 }
 
 .personal-info h3 {

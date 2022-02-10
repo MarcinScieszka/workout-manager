@@ -3,11 +3,9 @@
 require_once 'AppController.php';
 
 class CommunicationController extends AppController {
-
     public function contact() {
         if (!$this->isPost()) {
-            return $this->render('contact', [
-                'messages' => $this->messages]);
+            return $this->render('contact', ['message_sent' => false]);
         }
 
         $email = $_POST["email"];
@@ -17,17 +15,17 @@ class CommunicationController extends AppController {
 
         if (filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) == false) {
             return $this->render('contact', [
-                'messages' => ['Wrong email format!']
+                'messages' => ['Wrong email format!'], 'message_sent' => false
                 ]);
         }
 
         $recipient = "recipient@mail.com";
-        $mailheader = "MIME-Version: 1.0" . "\r\n";
-        $mailheader .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $mailheader  .= "From: $name ($email) \r\n";
-        mail($recipient, $topic, $message, $mailheader);
-        $message_sent = true;
+        $mailHeader = "MIME-Version: 1.0" . "\r\n";
+        $mailHeader .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $mailHeader  .= "From: $name ($email) \r\n";
+        mail($recipient, $topic, $message, $mailHeader);
 
-        return $this->render('contact', ['message_sent' => $message_sent]);
+//        TODO: configure SMTP server
+        return $this->render('contact', ['message_sent' => true]);
     }
 }

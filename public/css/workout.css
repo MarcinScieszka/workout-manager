@@ -2,7 +2,6 @@
     display: flex;
     gap: 1rem;
     background-color: transparent;
-    border: var(--red) 2px solid;
     border-radius: 1rem;
     justify-content: center;
     align-items: center;

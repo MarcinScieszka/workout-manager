@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     if (!isset($_SESSION['user'])) {
         header("Location: http://$_SERVER[HTTP_HOST]/login");
         exit();
@@ -8,13 +10,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="public/css/index.css">
-    <link rel="stylesheet" type="text/css" href="public/css/addWorkout.css">
-    <script type="text/javascript" src="/public/js/index.js" defer></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add workout</title>
+    <link rel="icon" type="image/x-icon" href="/public/img/favicon.ico">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/addWorkout.css">
+    <script type="text/javascript" src="/public/js/index.js" defer></script>
+    <script type="text/javascript" src="/public/js/header.js" defer></script>
+    <script type="text/javascript" src="/public/js/index.js" defer></script>
 </head>
 <body>
     <?php
@@ -24,21 +29,24 @@
         <div class="workout-form content-flex-col">
             <h1>Add workout</h1>
             <form class="add-workout-form content-flex-col" action="addWorkout" method="POST">
-                <h3>Workout name</h3>
-                <input required name="workout-name" type="text" placeholder="Name...">
-                <h3>Difficulty</h3>
-                <select class="workout-difficulty" name="workout-difficulty">
+                <h3><label for="workout-name">Workout name</label></h3>
+                <input required name="workout-name" type="text" id="workout-name" placeholder="Name...">
+
+                <h3><label for="workout-difficulty">Difficulty</label></h3>
+                <select class="workout-difficulty" name="workout-difficulty" id="workout-name" >
                     <option value="Just a training" selected>Just a training (Easy)</option>
                     <option value="Hard work">Hard work (Medium)</option>
                     <option value="Blood, sweat and tears">Blood, sweat and tears (Hard)</option>
                     <option value="Death march">Death march (Very Hard)</option>
                 </select>
-                <h3>Workout type</h3>
-                <select class="workout-type" name="workout-type">
+
+                <h3><label for="workout-type">Workout type</label></h3>
+                <select class="workout-type" name="workout-type" id="workout-type">
                     <option value="Armwrestling" selected>Armwrestling</option>
                     <option value="Bodybuilding">Bodybuilding</option>
                     <option value="Powerlifting">Powerlifting</option>
                 </select>
+
                 <h3>Exercises</h3>
                 <div class="exercise-types-grid">
                     <?php foreach ($exercises as $key=>$exerciseType): ?>
@@ -56,7 +64,7 @@
                                 <input name="exercises[<?= $exercise; ?>][name]" type="checkbox" value="<?= $exercise; ?>" id="<?= $exercise; ?>" onclick='showElement("<?= str_replace(' ', '_', $exercise); ?>")'>
                                 <label for="<?= $exercise; ?>" ><?= $exercise; ?></label>
                                 <div class="<?= str_replace(' ', '_', $exercise); ?>" style="display: none">
-                                    <h3>Exercise details</h3>
+                                    <label for="<?= $exercise; ?>-details">Exercise details</label>
                                     <textarea name="exercises[<?= $exercise; ?>][details]" id="<?= $exercise; ?>-details" cols="13" rows="2"></textarea>
                                     <label for="<?= $exercise; ?>-sets">Sets </label>
                                     <input type="number" id="<?= $exercise; ?>-sets" name="exercises[<?= $exercise; ?>][sets]" min="1" max="15">

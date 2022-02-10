@@ -1,6 +1,5 @@
 function colorizeWorkoutItems() {
     let workoutDifficultyLabel = document.getElementsByClassName("item-difficulty");
-    console.log(workoutDifficultyLabel.length);
     for(let i = 0; i < workoutDifficultyLabel.length; i++){
         switch (workoutDifficultyLabel[i].innerText) {
             case "Just a training":

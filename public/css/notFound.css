@@ -1,0 +1,20 @@
+.not-found-container {
+    height: 100vh;
+}
+
+.content {
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+}
+
+.content a {
+    margin-top: 2rem;
+    padding: 1rem;
+    width: 180px;
+    background-color: var(--red);
+    font-size: 1.2rem;
+}
+
+.content a:hover {
+    background-color: var(--red-hover);
+}

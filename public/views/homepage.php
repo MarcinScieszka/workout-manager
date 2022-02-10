@@ -1,4 +1,7 @@
-<?php session_start();
+<?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     if (isset($_SESSION['user'])) {
         header("Location: http://$_SERVER[HTTP_HOST]/dashboard");
         exit();
@@ -11,8 +14,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" type="text/css" href="public/css/index.css">
-    <link rel="stylesheet" type="text/css" href="public/css/homepage.css">
+    <link rel="icon" type="image/x-icon" href="/public/img/favicon.ico">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/homepage.css">
+    <script type="text/javascript" src="/public/js/index.js" defer></script>
+    <script type="text/javascript" src="/public/js/header.js" defer></script>
 </head>
 <body>
     <?php

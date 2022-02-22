@@ -45,13 +45,14 @@ function createWorkout(workout) {
     const exercises = clone.querySelector(".item-exercises");
     workout.exercises.forEach(exe => {
         const exercise = document.createElement('div');
+        const exerciseName = document.createElement("h3");
         exercise.classList.add('item-exercise');
-        exercise.innerHTML = exe;
+        exerciseName.innerHTML = exe;
+        exercise.appendChild(exerciseName);
         exercises.appendChild(exercise);
     });
 
     const detailsLink = clone.querySelector("a");
-    detailsLink.href = `/workout?id=${workout.id}`;
-
+    detailsLink.href = `/workout/${workout.id}`;
     workoutContainer.appendChild(clone);
 }

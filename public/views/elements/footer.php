@@ -13,9 +13,6 @@
             <a href="/workouts">Workouts</a>
         </div>
         <div class="footer-btn">
-            <a href="/about">About us</a>
-        </div>
-        <div class="footer-btn">
             <a href="/contact">Contact</a>
         </div>
         <div class="footer-btn">

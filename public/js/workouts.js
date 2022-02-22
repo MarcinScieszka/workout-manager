@@ -15,7 +15,6 @@ function colorizeWorkoutItems() {
                 workoutDifficultyLabel[i].classList.add("workout-crest-very-hard");
                 break;
             default:
-                console.log(workoutDifficultyLabel[i].innerText);
                 break;
         }
     }

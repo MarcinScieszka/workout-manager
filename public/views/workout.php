@@ -23,34 +23,48 @@ require_once('init.php');
 ?>
 <section class="container">
     <div class="content-flex-col">
-        <div class="workout-details">
+        <div class="workout-details content-flex-col">
             <div class="workout-stats">
                 <h3>Workout name<span class="accent">:</span> <?= $workout->getName(); ?></h3>
                 <h3>Difficulty<span class="accent">:</span> <?= $workout->getDifficulty (); ?></h3>
                 <h3>Type<span class="accent">:</span> <?= $workout->getType(); ?></h3>
             </div>
             <div class="exercises">
-                <h3>Exercises<span class="accent">:</span> </h3>
-                <?php foreach ($workout->getAllExercises() as $exercise): ?>
-                    <div class="exercise-item">
-                        <div class="exercise-name"><?= $exercise['name']; ?></div>
-                        <div class="exercise-sets">Sets<span class="accent">:</span> <?= $exercise['sets']; ?></div>
-                        <div class="exercise-reps">Reps<span class="accent">:</span> <?= $exercise['reps']; ?></div>
-                        <div class="exercise-description">Description<span class="accent">:</span> <?= $exercise['description']; ?></div>
-                    </div>
-                <?php endforeach; ?>
+                <table>
+                    <caption>Exercises</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Exercise name</th>
+                            <th scope="col">Set</th>
+                            <th scope="col">Reps</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($workout->getAllExercises() as $exercise): ?>
+                        <tr>
+                            <th scope="row"><div class="exercise-name"><?= $exercise['name']; ?></div></th>
+                            <td><div class="exercise-sets"><?= $exercise['sets']; ?></div></td>
+                            <td><div class="exercise-reps"><?= $exercise['reps']; ?></div></td>
+                            <td><div class="exercise-description"><?= $exercise['description']; ?></div></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
-            <div class="assign-workout-form">
-                <form class="content-flex-col" action="assignWorkout" method="POST">
-                    <div>
-                        <label for="workout-date">Choose workout date<span class="accent">:</span></label>
-                        <input id="workout-date" class="workout-date" type="datetime-local" name="workout-date" min="<?= $min_datetime; ?>" max="<?= $max_datetime; ?>" required>
-                    </div>
-                    <div class="choose-workout-btn">
-                        <input  type="submit" value="Choose">
-                    </div>
-                </form>
-            </div>
+            <?php if(isset($_SESSION['user'])): ?>
+                <div class="assign-workout-form">
+                    <form class="content-flex-col" action="assignWorkout" method="POST">
+                        <div>
+                            <label for="workout-date">Choose workout date<span class="accent">:</span></label>
+                            <input id="workout-date" class="workout-date" type="datetime-local" name="workout-date" min="<?= $min_datetime; ?>" max="<?= $max_datetime; ?>" required>
+                        </div>
+                        <div class="choose-workout-btn">
+                            <input  type="submit" value="Choose">
+                        </div>
+                    </form>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="go-back-btn">
             <a href="/workouts">Go back</a>

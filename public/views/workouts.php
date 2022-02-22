@@ -47,11 +47,9 @@
                             <h3><?=$wkt->getType();?></h3>
                         </div>
                         <div class="item-details content-flex-col">
-
                             <button class="workout-details-btn workout-crest">
                                 <a href="/workout/<?=$wkt->getId();?>">See details</a>
                             </button>
-
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -77,7 +75,6 @@
             <h3>Difficulty</h3>
         </div>
         <div class="item-exercises content-flex-col">
-
         </div>
         <div class="item-type content-flex-col">
             <h3>Type</h3>
@@ -89,5 +86,4 @@
         </div>
     </div>
 </template>
-
 </html>

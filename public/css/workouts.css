@@ -87,7 +87,7 @@
     }
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 680px) {
     .workouts-list {
         grid-template-columns: 1fr;
     }

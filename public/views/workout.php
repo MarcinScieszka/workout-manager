@@ -67,7 +67,7 @@ require_once('init.php');
             <?php endif; ?>
         </div>
         <div class="go-back-btn">
-            <a href="/workouts">Go back</a>
+            <a href="javascript:window.history.back()">Go back</a>
         </div>
     </div>
 </section>

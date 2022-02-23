@@ -13,7 +13,7 @@ class WorkoutController extends AppController {
     }
 
     public function workouts() {
-        $workouts = $this->workoutRepository->getWorkouts(1);
+        $workouts = $this->workoutRepository->getWorkoutsByUserType(2);
         return $this->render('workouts', ['workouts' => $workouts]);
     }
 
@@ -136,7 +136,7 @@ class WorkoutController extends AppController {
             header('Content-type: application/json');
             http_response_code(200);
 
-            echo json_encode($this->workoutRepository->getWorkoutsByName($decoded['search']));
+            echo json_encode($this->workoutRepository->getWorkoutsByName($decoded['search'], 2));
         }
     }
 }

@@ -2,25 +2,21 @@ const workoutSearch = document.getElementById("workout-search");
 const workoutContainer = document.querySelector(".workouts-list");
 
 workoutSearch.addEventListener("keyup", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
+    const searchData = {search: this.value};
 
-        const searchData = {search: this.value};
-
-        fetch("/search", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(searchData)
-        }).then(function (response) {
-            return response.json();
-        }).then(function (workouts) {
-            workoutContainer.innerHTML = "";
-            loadWorkouts(workouts);
-            colorizeWorkoutItems();
-        });
-    }
+    fetch("/search", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(searchData)
+    }).then(function (response) {
+        return response.json();
+    }).then(function (workouts) {
+        workoutContainer.innerHTML = "";
+        loadWorkouts(workouts);
+        colorizeWorkoutItems();
+    });
 });
 
 function loadWorkouts(workouts) {

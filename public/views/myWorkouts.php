@@ -63,7 +63,7 @@
                         </div>
                         <div class="item-details content-flex-col">
                             <button class="workout-details-btn workout-crest">
-                                <a href="/workout?id=<?=$wkt->getId();?>">See details</a>
+                                <a href="/workout/<?=$wkt->getId();?>">See details</a>
                             </button>
                         </div>
                     </div>

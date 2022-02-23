@@ -5,41 +5,71 @@ require_once __DIR__."/../models/Workout.php";
 
 class WorkoutRepository extends Repository
 {
-    public function getWorkouts($creator_user_id): ?array {
-        $result = [];
-
+    public function getWorkoutsByUserType(int $id_user_type): array
+    {
         $db = $this->database->connect();
 
-        $workout_exercises = [];
+        $workout_exercises = $this->getWorkoutExercisesByUserType($db, $id_user_type);
+
         $sql = '
-            SELECT w.workout_name, e.exercise_name FROM public.workout_exercise we
-            JOIN public.workout w ON w.id = we.id_workout
-            JOIN exercise e ON we.id_exercise = e.id
+            SELECT w.id, w.workout_name, wd.difficulty, wt.type 
+            FROM public.workout w
+            JOIN "user" u ON u.id_user_type = ? AND u.id = w.creator_user_id
+            JOIN workout_type wt ON w.id_workout_type = wt.id
+            JOIN workout_difficulty wd ON w.id_workout_difficulty = wd.id
+            ORDER BY w.workout_name;
         ';
         $stmt = $db->prepare($sql);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-            $workout_exercises[$row->workout_name][] = $row->exercise_name;
-        }
+        $stmt->execute([$id_user_type]);
+        return $this->fetchWorkoutDetailsWithExercises($stmt, $workout_exercises);
+    }
+
+    public function getWorkouts($creator_user_id): array {
+        $db = $this->database->connect();
+
+        $workout_exercises = $this->getWorkoutExercisesByUserId($db, $creator_user_id);
 
         $sql = '
             SELECT w.id, w.workout_name, wd.difficulty, wt.type FROM public.workout w
             JOIN workout_type wt ON w.id_workout_type = wt.id
             JOIN workout_difficulty wd ON w.id_workout_difficulty = wd.id
-            WHERE w.creator_user_id = ?;
+            WHERE w.creator_user_id = ?
+            ORDER BY w.workout_name;
         ';
-
         $stmt = $db->prepare($sql);
         $stmt->execute([$creator_user_id]);
+        return $this->fetchWorkoutDetailsWithExercises($stmt, $workout_exercises);
+    }
+
+    public function getWorkoutsByName(string $searchString, int $id_user_type): array
+    {
+        $result = [];
+        $searchString = '%'.strtolower($searchString).'%';
+
+        $db = $this->database->connect();
+
+        $workout_exercises = $this->getWorkoutExercisesByUserType($db, $id_user_type);
+
+        $sql = '
+            SELECT w.id, w.workout_name, wt.type, wd.difficulty
+            FROM public.workout w
+            JOIN workout_type wt ON wt.id = w.id_workout_type
+            JOIN workout_difficulty wd ON wd.id = w.id_workout_difficulty
+            WHERE w.creator_user_id = 1 AND LOWER(w.workout_name) LIKE ?
+            ORDER BY w.workout_name;
+        ';
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$searchString]);
+
         while($workout = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = new Workout(
-                $workout['id'],
-                $workout['workout_name'],
-                $workout['difficulty'],
-                $workout['type'],
-                $workout_exercises[$workout['workout_name']]
-            );
+            $result[] = [
+                'id' => $workout['id'],
+                'workout_name' => $workout['workout_name'],
+                'difficulty' => $workout['difficulty'],
+                'type' => $workout['type'],
+                'exercises' => $workout_exercises[$workout['workout_name']]];
         }
+
         return $result;
     }
 
@@ -178,51 +208,14 @@ class WorkoutRepository extends Repository
         return $workout_date;
     }
 
-    public function getWorkoutsByName(string $searchString): array
-    {
-        $searchString = '%'.strtolower($searchString).'%';
-
-        $db = $this->database->connect();
-        $workout_exercises = [];
-        $result = [];
-        $sql = '
-            SELECT w.workout_name, e.exercise_name FROM public.workout_exercise we
-            JOIN public.workout w ON w.id = we.id_workout
-            JOIN exercise e ON we.id_exercise = e.id
-        ';
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-            $workout_exercises[$row->workout_name][] = $row->exercise_name;
-        }
-
-        $sql = '
-            SELECT w.id, w.workout_name, wt.type, wd.difficulty
-            FROM public.workout w
-            JOIN workout_type wt ON wt.id = w.id_workout_type
-            JOIN workout_difficulty wd ON wd.id = w.id_workout_difficulty
-            WHERE w.creator_user_id = 1 AND LOWER(w.workout_name) LIKE ?;
-        ';
-        $stmt = $db->prepare($sql);
-        $stmt->execute([$searchString]);
-
-        while($workout = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = [
-                'id' => $workout['id'],
-                'workout_name' => $workout['workout_name'],
-                'difficulty' => $workout['difficulty'],
-                'type' => $workout['type'],
-                'exercises' => $workout_exercises[$workout['workout_name']]];
-        }
-
-        return $result;
-    }
-
     public function getExercises(): array {
         $db = $this->database->connect();
 
         $stmt =  $db->prepare('
-            SELECT exercise_name, exercise_type FROM exercise e JOIN exercise_type et ON et.id = e.id_exercise_type;
+            SELECT e.exercise_name, et.exercise_type 
+            FROM exercise e 
+            JOIN exercise_type et ON et.id = e.id_exercise_type
+            ORDER BY e.exercise_name;
         ');
         $stmt->execute();
         $result = [];
@@ -268,5 +261,55 @@ class WorkoutRepository extends Repository
             $db->rollback();
             throw $e;
         }
+    }
+
+
+    private function getWorkoutExercisesByUserType(PDO $db, int $id_user_type): array
+    {
+        $workout_exercises = [];
+        $sql = '
+            SELECT w.workout_name, e.exercise_name 
+            FROM public.workout_exercise we
+            JOIN public.workout w ON w.id = we.id_workout
+            JOIN "user" u ON u.id_user_type = ? AND u.id = w.creator_user_id
+            JOIN exercise e ON we.id_exercise = e.id;
+        ';
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_user_type]);
+        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+            $workout_exercises[$row->workout_name][] = $row->exercise_name;
+        }
+        return $workout_exercises;
+    }
+
+    private function getWorkoutExercisesByUserId(PDO $db, $creator_user_id): array
+    {
+        $workout_exercises = [];
+        $sql = '
+            SELECT w.workout_name, e.exercise_name FROM public.workout_exercise we
+            JOIN public.workout w ON w.creator_user_id = ? AND w.id = we.id_workout
+            JOIN exercise e ON we.id_exercise = e.id;
+        ';
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$creator_user_id]);
+        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+            $workout_exercises[$row->workout_name][] = $row->exercise_name;
+        }
+        return $workout_exercises;
+    }
+
+    private function fetchWorkoutDetailsWithExercises(bool|PDOStatement $stmt, array $exercises): array
+    {
+        $result = [];
+        while ($workout = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $result[] = new Workout(
+                $workout['id'],
+                $workout['workout_name'],
+                $workout['difficulty'],
+                $workout['type'],
+                $exercises[$workout['workout_name']]
+            );
+        }
+        return $result;
     }
 }

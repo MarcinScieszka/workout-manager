@@ -68,8 +68,8 @@ class WorkoutController extends AppController {
         $workout = new Workout($_SESSION['user_id'], $workoutName, $_POST['workout-difficulty'], $_POST['workout-type'], $exercises);
         $this->workoutRepository->addWorkout($workout);
 
-        $userWorkouts = $this->workoutRepository->getWorkouts($_SESSION['user_id']);
-        return $this->render('myWorkouts', ['userWorkouts' => $userWorkouts]);
+        header("Location: http://$_SERVER[HTTP_HOST]/myWorkouts");
+        exit();
     }
 
     public function workout($id) {
@@ -90,19 +90,34 @@ class WorkoutController extends AppController {
     }
 
     public function assignWorkout() {
-        if (!$this->isPost()) {
-            return $this->render('/');
-        }
+        var_dump("a");
+//        if (!$this->isPost()) {
+//            return $this->render('/');
+//        }
+        print_r("abc");
 
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
+//        if(checkIfUserHasAssignedWorkout(id_user)) {
+//
+//        }
+//      TODO:
+//        change assignWorkout to change assignedWorkout val to true
+//        check here if user has already assigned
+//            if yes then show confirm("You already have assigned workout")
+//        UX: can user overwrite assigned workout here or cancel it from
+//            the dashboard
+
         $workout_date = preg_replace("/[T]/", " ", $_POST['workout-date']);
         $this->workoutRepository->assignWorkout($_SESSION['assign_workout_id'], $_SESSION['user_id'], $workout_date);
 
-        header("Location: http://$_SERVER[HTTP_HOST]/dashboard");
-        exit();
+        var_dump("c");
+
+//
+//        header("Location: http://$_SERVER[HTTP_HOST]/dashboard");
+//        exit();
     }
 
     public function completeWorkout() {

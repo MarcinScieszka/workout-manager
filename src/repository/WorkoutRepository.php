@@ -166,7 +166,7 @@ class WorkoutRepository extends Repository
         }
     }
 
-    public function assignWorkout(int $workout_id, int $user_id, string $workout_date): void {
+    public function assignWorkout(int $id_workout, int $id_user, string $workout_date): void {
         $db = $this->database->connect();
 
         try {
@@ -174,7 +174,12 @@ class WorkoutRepository extends Repository
 
             $sql = 'INSERT INTO workout_assignment (id_workout, id_user, workout_date) VALUES (?, ?, ?);';
             $stmt = $db->prepare($sql);
-            $stmt->execute([$workout_id, $user_id, $workout_date]);
+            $stmt->execute([$id_workout, $id_user, $workout_date]);
+
+            $sql = 'UPDATE public."user" SET assigned_workout = ?
+                    WHERE id = ?;';
+            $stmt = $db->prepare($sql);
+            $stmt->execute([true, $id_user]);
 
             $db->commit();
         }
